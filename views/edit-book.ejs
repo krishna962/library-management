@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Book</title>
+    <link rel="stylesheet" href="/css/add-book.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Edit Book</h1>
+        <form action="/admin-dashboard/edit-book/<%= book._id %>" method="POST" class="add-book-form">
+            <div class="form-group">
+                <label>Title:</label>
+                <input type="text" name="title" value="<%= book.title %>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Author:</label>
+                <input type="text" name="author" value="<%= book.author %>" required>
+            </div>
+
+            <div class="form-group">
+                <label>Image URL:</label>
+                <input type="text" name="imageUrl" value="<%= book.imageUrl %>" required>
+            </div>
+
+            <button type="submit">Update Book</button>
+        </form>
+    </div>
+
+</body>
+</html>

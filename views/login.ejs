@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+   <!-- Login Page -->
+   <span class="close-button" onclick="redirectToHome()">❌</span>
+<div class="login-container">
+    <div class="card">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label>Email or Phone</label>
+                <input type="text" name="emailOrPhone" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password" id="login-password" required>
+                <span class="toggle-password" onclick="togglePassword('login-password')"></span>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="/register" style="color: black; font-weight: bolder;">Register</a></p>
+    </div>
+</div>
+
+    <script src="/js/login.js"></script>
+</body>
+</html>

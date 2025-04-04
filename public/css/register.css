@@ -1,0 +1,323 @@
+/* Enhanced CSS with better transitions and responsiveness */
+body { 
+    font-family: Arial, sans-serif;
+    background: url('https://static1.anpoimages.com/wordpress/wp-content/uploads/2023/10/calibre-hero-1.jpg?q=50&fit=crop&w=1140&h=&dpr=1.5') no-repeat center center/cover;
+  
+   /* background-color:rgb(11, 218, 245); */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+    /* color: black; */
+}
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    /* background-color: rgb(219, 175, 175); */
+    display: flex;
+    
+}
+.book-images {
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.book-images img {
+    width: 130px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.book-images img:hover {
+    transform: scale(1.15);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+.card {
+    background: rgba(255, 255, 255, 0.25);
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+    text-align: center;
+    width: 450px;
+    backdrop-filter: blur(15px);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+.card h2 {
+    margin-bottom: 20px;
+    color: #fff;
+}
+.input-group {
+    position: relative;
+    margin: 15px 0;
+}
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    outline: none;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+.input-group input:focus, .input-group select:focus {
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+}
+.input-group input:focus ~ label, 
+.input-group input:valid ~ label, 
+.input-group select:focus ~ label, 
+.input-group select:valid ~ label {
+    top: 5px;
+    left: 10px;
+    font-size: 12px;
+    color: #ffcc00;
+}
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ffcc00;
+}
+
+#dropdown{
+    /* background-color: hotpink; */
+    color: black;
+}
+.card button {
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    color: #333;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: background 0.3s, transform 0.3s;
+}
+.card button:hover {
+    background: linear-gradient(135deg, #e6b800, #ff7700);
+    transform: scale(1.07);
+}
+.card p {
+    margin-top: 15px;
+    color: #fff;
+}
+.card a {
+    color: #ffcc00;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.card a:hover {
+    color: #e6b800;
+    text-decoration: underline;
+}
+@media (max-width: 768px) {
+    .card {
+        width: 90%;
+        padding: 30px;
+    }
+    .book-images {
+        display: none;
+    }
+}
+
+.password-instructions {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+    display: none; /* Initially hidden */
+    font-weight: bolder;
+}
+
+.password-instructions ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.password-instructions li {
+    font-size: 12px;
+    color: black;
+    font-weight: bolder;
+}
+
+#password-match-message {
+    font-size: 12px;
+    color: red;
+}
+
+.hidden {
+    display: none;
+}
+
+.phone-input {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 8px;
+    border-radius: 12px;
+    width: 100%;
+}
+
+.country-code {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    margin-right: 8px;
+}
+
+.phone-input input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    color: #fff;
+    width: 100%;
+}
+
+.validation-message {
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+.valid {
+    color: limegreen;
+}
+
+.invalid {
+    color: red;
+}
+
+#role{
+    color: black;
+}
+.valid::before {
+    content: "✅ ";
+    color: limegreen;
+}
+
+.invalid::before {
+    content: "❌ ";
+    color: red;
+}
+
+/* Close Button Styling */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 25px;
+    color: white;
+    /* background-color: rgba(255, 0, 0, 0.7);  */
+    border: none;
+    padding: 5px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+/* Hover effect */
+.close-button:hover {
+    /* background-color: red; */
+    transform: scale(1.1);
+    font-size: 35px;
+}
+
+
+/* registration msg  */
+
+.success-message {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #28a745;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.success-message button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    background: white;
+    color: #28a745;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.success-message button:hover {
+    background: #218838;
+    color: white;
+}
+
+
+
+/* Alert Box Styling */
+
+.alert-box {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.success {
+    background-color: #28a745;
+    color: white;
+}
+
+.error {
+    background-color: #dc3545;
+    color: white;
+}
+
+.alert-box button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    background: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.alert-box button:hover {
+    background: rgba(255, 255, 255, 0.8);
+}

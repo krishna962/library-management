@@ -1,0 +1,116 @@
+<!-- views/register.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+<body>
+    <!-- Close Button -->
+<span class="close-button" onclick="redirectToHome()">❌</span>
+
+
+<!-- Success Message -->
+<div id="success-message" class="success-message" style="display: none;">
+    🎉 Registration Successful!  
+    <button onclick="redirectToLogin()">Go to Login</button>
+</div>
+
+
+    <!-- Error Message -->
+    <div id="error-message" class="alert-box error">
+        ⚠️ Email or Phone already registered! <br>
+        <button onclick="hideError()">Try Again</button>
+    </div>
+ 
+    <div class="register-container">
+        <div class="card">
+            <h2>Register</h2>
+            <form action="/register" method="POST">
+                <div class="input-group">
+                    <input type="text" name="name" required>
+                    <label>Full Name</label>
+                </div>
+                <div class="input-group">
+                    <input type="email" name="email" required>
+                    <label>Email</label>
+                </div>
+                <!-- <div class="input-group">
+                    <input type="password" name="password" id="password" required>
+                    <label>Password</label>
+                    <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                </div> -->
+                <div class="input-group">
+                    <input type="password" id="password" name="password" required oninput="validatePassword()">
+                    <label>Password</label>
+                    <span class="toggle-password" onclick="togglePassword()"></span>
+                </div>
+                <small id="password-instructions" class="password-instructions">
+                    Password must contain:
+                    <ul>
+                        <li id="upper" class="invalid">1 uppercase letter</li>
+                        <li id="special" class="invalid">1 special character</li>
+                        <li id="number" class="invalid">1 number</li>
+                        <li id="length" class="invalid">Max 7 characters</li>
+                    </ul>
+                </small>
+                
+                
+                <!-- Confirm Password -->
+                 <div class="input-group">
+                    <input type="password" id="confirm-password" name="confirm-password" required oninput="checkPasswordMatch()">
+                    <label>Confirm Password</label>
+                </div>
+                <small id="password-match" class="validation-message"></small>
+
+                
+                <div class="input-group">
+                    <div class="phone-input">
+                        <span class="country-code">+91</span>
+                        <input type="text" name="phone" id="phone" required oninput="validatePhone()" maxlength="10" placeholder="Enter 10-digit phone number">
+                    </div>
+                    <small id="phone-message" class="validation-message"></small>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" name="address" required>
+                    <label>Address</label>
+                </div>
+                <!-- Dropdown for Class Selection -->
+<div class="input-group dropdown">
+    <select name="userClass" id="dropdown" required>
+        <option value="" disabled selected>Select Class</option>
+        <option value="5">Class 5</option>
+        <option value="6">Class 6</option>
+        <option value="7">Class 7</option>
+        <option value="8">Class 8</option>
+        <option value="9">Class 9</option>
+        <option value="10">Class 10</option>
+        <option value="11">Class 11</option>
+        <option value="12">Class 12</option>
+        <option value="bachelor">Bachelor</option>
+        <option value="master">Master Level</option>
+        <option value="more">More..</option>
+    </select>
+    </select>
+    <label></label>
+</div>
+                <div class="input-group">
+                    <select name="role" id="role" required>
+                        <option value="student">Select Role</option>
+                        <option value="student">Student</option>
+
+                        <!-- <option value="admin">Admin</option> -->
+                    </select>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <p style="color: red; font-weight: bolder;">Already have an account? <a href="/login" style="color: black; font-weight: bolder;">Login</a></p>
+        </div>
+    </div>
+    
+    <script src="/js/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!-- // show book list here -->
+    <h2>All Books</h2>
+    <div class="book-list">
+        <% if (books && books.length > 0) { %>
+            <% books.forEach(book => { %>
+                <div class="book-card">
+                    <img src="<%= book.imageUrl %>" alt="Book Cover">
+                    <h3><%= book.title %></h3>
+                    <p>Author: <%= book.author %></p>
+                    
+                    <div class="book-actions">
+                        <form action="/admin-dashboard/delete-book/<%= book._id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?')">
+                            <button class="delete-btn">Delete</button>
+                        </form>
+                        <a href="/admin-dashboard/edit-book/<%= book._id %>" class="edit-btn">Edit</a>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No books found.</p>
+        <% } %>
+    </div>

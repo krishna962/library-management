@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="/css/student-dashboard.css">
+   
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="https://static.vecteezy.com/system/resources/previews/020/402/234/non_2x/library-book-reading-abstract-icon-or-emblem-vector.jpg" alt="Logo">
+            <span>Library Management</span>
+        </div>
+        <ul>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#issued-books">Issued Books</a></li>
+            <li><a href="#order-tea">Order Tea</a></li>
+            <li><a href="#fees">Pay Fees</a></li>
+            <li><a href="#logout" onclick="logout()">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero">
+        <h1>Welcome to Your Student Dashboard</h1>
+        <p>Manage your books, payments, and more with ease.</p>
+        <button>Explore Now</button>
+    </section>
+    
+    <section id="profile" class="profile-section">
+        <img src="https://media.istockphoto.com/id/1369754239/photo/university-student-in-white-background-stock-photo.jpg?s=612x612&w=0&k=20&c=LjFVDfjusWBjYTNliHV9DyXfApPGc8DmgBGEtfVgQ0Q=" alt="Student Image" class="profile-img">
+        <div class="profile-info">
+            <h2 id="student-name">John Doe</h2>
+            <p>Email: <span id="student-email">johndoe@example.com</span></p>
+            <p>Class: <span id="student-class">B.Sc Computer Science</span></p>
+        </div>
+    </section>
+    
+    <section id="issued-books" class="dashboard-section">
+        <h2>Issued Books</h2>
+        <ul id="book-list">
+            <li>Book 1 - <button onclick="returnBook(1)">Return</button></li>
+            <li>Book 2 - <button onclick="returnBook(2)">Return</button></li>
+        </ul>
+    </section>
+    
+    <section id="order-tea" class="dashboard-section">
+        <h2>Order Tea</h2>
+        <button onclick="orderTea()">Order Now</button>
+    </section>
+    
+    <section id="fees" class="dashboard-section">
+        <h2>Pay Monthly Fee</h2>
+        <p>Total Fee: $500</p>
+        <button onclick="payFee()">Pay Now</button>
+    </section>
+    
+    <footer class="footer">
+        <p>&copy; 2025 Library Management System</p>
+    </footer>
+    
+   <script src="/js/student-dashboard.js"></script>
+</body>
+</html>

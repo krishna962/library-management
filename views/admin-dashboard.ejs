@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <script src="/js/auth.js"></script>
+
+</head>
+<body>
+    <!-- Admin Navigation Bar -->
+    <nav class="admin-navbar">
+        <h2>📚 Library Admin Dashboard</h2>
+        <ul>
+            <li><a href="/admin-dashboard">Dashboard</a></li>
+            <li><a href="/view-students">View Students</a></li>
+            <li><a href="/track-login">Track Logins</a></li>
+            <li><a href="/admin-dashboard/add-book">Add Book</a></li>
+            <li><a href="/library-images">Library Images</a></li>
+            <li><a href="/issued-books">Issued Books</a></li>
+            <li><a href="/" class="logout-btn">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dashboard Main Section -->
+    <section class="dashboard">
+        <div class="card" onclick="window.location.href='/view-students'">
+            <h3>📖 View Students</h3>
+            <p>See all registered students</p>
+        </div>
+        <div class="card" onclick="window.location.href='/track-login'">
+            <h3>🕵️ Track Logins</h3>
+            <p>Check students who logged in</p>
+        </div>
+        <div class="card" onclick="window.location.href='/add-book'">
+            <h3>📚 Add a Book</h3>
+            <p>Add new books to the library</p>
+        </div>
+        <div class="card" onclick="window.location.href='/library-images'">
+            <h3>🏛️ Library Images</h3>
+            <p>View the current library section</p>
+        </div>
+        <div class="card" onclick="window.location.href='/issued-books'">
+            <h3>📜 Issued Books</h3>
+            <p>View all issued books</p>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="admin-footer">
+        <p>&copy; 2025 Library Management System | Admin Panel</p>
+    </footer>
+
+    <script src="/js/admin-dashboard.js"></script>
+    
+    
+    
+</body>
+</html>

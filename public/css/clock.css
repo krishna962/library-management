@@ -1,0 +1,94 @@
+/* Digital Clock Styling */
+.digital-clock {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* Ensure proper alignment in the navbar */
+.navbar .container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.navbar-brand {
+    position: absolute;
+    left: 15px;
+}
+
+#navbarNav {
+    position: absolute;
+    right: 15px;
+}
+
+/* General Navbar Styling */
+.navbar {
+    padding: 10px 15px;
+}
+
+/* Digital Clock Styling */
+.digital-clock {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* Ensure the digital clock is visible only on large screens */
+@media (max-width: 991px) {
+    .digital-clock {
+        display: none;
+    }
+}
+/* Responsive Design for the Digital Clock */
+@media (max-width: 767px) {
+    .digital-clock {
+        font-size: 1.2rem;
+    }
+}
+/* Adjust font size for smaller screens */
+@media (max-width: 575px) {
+    .digital-clock {
+        font-size: 1rem;
+    }
+}
+/* Adjust font size for extra small screens */
+@media (max-width: 400px) {
+    .digital-clock {
+        font-size: 0.8rem;
+    }
+}
+/* Adjust font size for extra small screens */
+@media (max-width: 300px) {
+    .digital-clock {
+        font-size: 0.6rem;
+    }
+}
+/* Adjust font size for extra small screens */
+@media (max-width: 200px) {
+    .digital-clock {
+        font-size: 0.4rem;
+    }
+}
+/* Adjust font size for extra small screens */
+@media (max-width: 100px) {
+    .digital-clock {
+        font-size: 0.2rem;
+    }
+}
+/* Adjust font size for extra small screens */
+@media (max-width: 50px) {
+    .digital-clock {
+        font-size: 0.1rem;
+    }
+}
+/* Adjust font size for extra small screens */
+@media (max-width: 25px) {
+    .digital-clock {
+        font-size: 0.05rem;
+    }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+    <link rel="stylesheet" href="/css/add-book.css">
+</head>
+<body>
+
+    <!-- 🔷 Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h2 class="logo">📚 Library Manager</h2>
+            <ul class="nav-links">
+                <li><a href="/admin-dashboard">Dashboard</a></li>
+                <li><a href="/admin-dashboard/add-book">Show Books</a></li>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 📘 Main Content -->
+    <div class="container">
+        <h1>Add a New Book</h1>
+
+        <!-- 🔽 Book Add Form -->
+        <form action="/admin-dashboard/add-book" method="POST" class="add-book-form">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" required>
+            </div>
+
+            <div class="form-group">
+                <label for="imageUrl">Image URL:</label>
+                <input type="text" id="imageUrl" name="imageUrl" required>
+            </div>
+
+            <button type="submit">Add Book</button>
+        </form>
+
+        <hr>
+
+        <h2>All Books</h2>
+    </div>
+
+    
+
+    <!-- 🔻 Footer -->
+    <footer class="footer">
+        <p>&copy; <%= new Date().getFullYear() %> Library Management System. All rights reserved.</p>
+    </footer>
+
+    <script src="/js/add-book.js"></script>
+</body>
+</html>
