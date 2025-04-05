@@ -14,42 +14,82 @@
             <h2 class="logo">📚 Library Manager</h2>
             <ul class="nav-links">
                 <li><a href="/admin-dashboard">Dashboard</a></li>
-                <li><a href="/admin-dashboard/add-book">Show Books</a></li>
+                <li><a href="/admin-dashboard/show-all-books">Show Books</a></li>
                 <li><a href="/">Logout</a></li>
             </ul>
         </div>
     </nav>
 
+    <% if (success_msg) { %>
+        <div class="flash-success" id="flashSuccess"><%= success_msg %></div>
+      <% } %>
+      
+    
+    <% if (error_msg && error_msg.length > 0) { %>
+        <div class="flash-error"><%= error_msg[0] %></div>
+    <% } %>
+    
     <!-- 📘 Main Content -->
-    <div class="container">
-        <h1>Add a New Book</h1>
-
-        <!-- 🔽 Book Add Form -->
-        <form action="/admin-dashboard/add-book" method="POST" class="add-book-form">
-            <div class="form-group">
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required>
-            </div>
-
-            <div class="form-group">
-                <label for="author">Author:</label>
-                <input type="text" id="author" name="author" required>
-            </div>
-
-            <div class="form-group">
-                <label for="imageUrl">Image URL:</label>
-                <input type="text" id="imageUrl" name="imageUrl" required>
-            </div>
-
-            <button type="submit">Add Book</button>
-        </form>
-
-        <hr>
-
-        <h2>All Books</h2>
-    </div>
+    <!-- Inside container, keep the form -->
+<div class="container">
+    <h1>Add a New Book</h1>
 
     
+    
+    <form action="/admin-dashboard/add-book" method="POST" class="add-book-form">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required>
+        </div>
+
+        <div class="form-group">
+            <label for="imageUrl">Image URL:</label>
+            <input type="text" id="imageUrl" name="imageUrl" required>
+        </div>
+
+        <button type="submit">Add Book</button>
+    </form>
+</div>
+
+<!-- ✅ Books Display Section Outside the Form -->
+<section class="book-section">
+    <h2>📚 Latest Books</h2>
+
+    <div class="book-row">
+        <% if (books && books.length > 0) { %>
+            <% books.slice(0, 3).forEach(book => { %>
+                <div class="book-card">
+                    <img src="<%= book.imageUrl %>" alt="Book Cover">
+                    <div class="card-info">
+                        <h3><%= book.title %></h3>
+                        <p><strong>Author:</strong> <%= book.author %></p>
+                        <div class="card-actions">
+                            <a href="/admin-dashboard/edit-book/<%= book._id %>" class="btn edit">Edit</a>
+                            <form action="/admin-dashboard/delete-book/<%= book._id %>" method="POST" style="display:inline;">
+                                <button type="submit" class="btn delete">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No books found.</p>
+        <% } %>
+    </div>
+
+    <% if (books.length > 3) { %>
+        <div class="view-all-container">
+            <a href="/admin-dashboard/show-all-books" class="view-all">📖 View All Books</a>
+        </div>
+    <% } %>
+    
+</section>
+
 
     <!-- 🔻 Footer -->
     <footer class="footer">

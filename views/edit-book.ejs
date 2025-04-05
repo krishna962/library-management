@@ -7,6 +7,19 @@
 </head>
 <body>
 
+     <!-- 🔷 Navbar -->
+     <nav class="navbar">
+        <div class="nav-container">
+            <h2 class="logo">📚 Library Manager</h2>
+            <ul class="nav-links">
+                <li><a href="/admin-dashboard">Dashboard</a></li>
+                <li><a href="/admin-dashboard/show-all-books">Show Books</a></li>
+                <!-- <li><a href="/">Logout</a></li> -->
+            </ul>
+        </div>
+    </nav>
+
+
     <div class="container">
         <h1>Edit Book</h1>
         <form action="/admin-dashboard/edit-book/<%= book._id %>" method="POST" class="add-book-form">
@@ -28,6 +41,11 @@
             <button type="submit">Update Book</button>
         </form>
     </div>
+
+     <!-- 🔻 Footer -->
+     <footer class="footer">
+        <p>&copy; <%= new Date().getFullYear() %> Library Management System. All rights reserved.</p>
+    </footer>
 
 </body>
 </html>

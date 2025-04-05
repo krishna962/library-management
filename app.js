@@ -12,6 +12,8 @@ const { use } = require("./routes/authRoutes");
 const authRoutes = require("./routes/authRoutes"); // Add this line to import authRoutes
 const isAuthenticated = require('./middleware/auth');
 const adminRoutes = require('./routes/adminRoutes'); // 🆕 Import Admin Routes
+const bcrypt = require("bcryptjs"); // You’re using bcrypt in /register
+const User = require("./models/user"); // You use this in /register
 
 
 const app = express();
@@ -108,9 +110,9 @@ app.get('/admin-dashboard', (req, res) => {
 });
 
 
-app.get('/admin-dashboard/add-book', (req, res) => {
-    res.render('add-book'); // Make sure you have admin-dashboard.ejs in views folder
-});
+// app.get('/admin-dashboard/add-book', (req, res) => {
+//     res.render('add-book'); // Make sure you have admin-dashboard.ejs in views folder
+// });
 
 
 // ✅ register page route

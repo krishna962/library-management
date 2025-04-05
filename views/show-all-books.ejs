@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Books</title>
+    <link rel="stylesheet" href="/css/show-all-books.css"> <!-- Or a new CSS file -->
+</head>
+<body>
+
+    <!-- 🔷 Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h2 class="logo">📚 Library Manager</h2>
+            <ul class="nav-links">
+                <li><a href="/admin-dashboard">Dashboard</a></li>
+                <li><a href="/admin-dashboard/add-book">Add Book</a></li>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>📘 All Books</h1>
+
+        <% if (books.length > 0) { %>
+            <div class="book-grid">
+                <% books.forEach(book => { %>
+                    <div class="book-card">
+                        <img src="<%= book.imageUrl %>" alt="Book Cover">
+                        <h3><%= book.title %></h3>
+                        <p><strong>Author:</strong> <%= book.author %></p>
+                        <div class="card-actions">
+                            <a href="/admin-dashboard/edit-book/<%= book._id %>" class="btn edit">Edit</a>
+                            <form action="/admin-dashboard/delete-book/<%= book._id %>" method="POST" style="display:inline;">
+                                <button type="submit" class="btn delete">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p>No books found.</p>
+        <% } %>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; <%= new Date().getFullYear() %> Library Management System. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

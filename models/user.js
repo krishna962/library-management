@@ -9,6 +9,8 @@ const userSchema = new mongoose.Schema({
     userClass: { type: String, required: true },
     role: { type: String, enum: ["student", "admin"], required: true },
     password: { type: String, required: true }
+}, {
+    timestamps: true  // ✅ This will add createdAt and updatedAt fields automatically
 });
 
 // Hash password before saving user
@@ -19,5 +21,7 @@ userSchema.pre("save", async function (next) {
     next();
 });
 
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+// const User = mongoose.model("User", userSchema);
+// module.exports = User;
+// ✅ Prevent OverwriteModelError
+module.exports = mongoose.models.User || mongoose.model('User', userSchema);

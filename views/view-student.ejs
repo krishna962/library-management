@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Students</title>
+    <link rel="stylesheet" href="/css/view-student.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f8;
+        }
+
+        .navbar {
+            background-color: #4a90e2;
+            padding: 1rem 2rem;
+            color: white;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .search-container {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .search-container input {
+            padding: 0.5rem;
+            width: 250px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .search-container button {
+            padding: 0.5rem 1rem;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .students-table-container {
+            width: 90%;
+            margin: auto;
+            margin-bottom: 3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .footer {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🔷 Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h2 class="logo">🎓 Library Manager</h2>
+            <ul class="nav-links">
+                <li><a href="/admin-dashboard">Dashboard</a></li>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 🔍 Search Bar -->
+    <div class="search-container">
+        <form action="/admin-dashboard/view-students" method="GET">
+            <input type="text" name="name" placeholder="Search by name..." value="<%= searchQuery || '' %>" />
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- 📋 Students Table -->
+    <div class="students-table-container">
+        <% if (students.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Registered Date</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% students.forEach(student => { %>
+                        <tr>
+                            <td><%= student.name %></td>
+                            <td><%= student.email %></td>
+                            <td><%= new Date(student.createdAt).toLocaleDateString() %></td>
+                            <td><%= student.role %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p style="text-align:center;">No students found.</p>
+        <% } %>
+    </div>
+
+    <!-- 🔻 Footer -->
+    <footer class="footer">
+        <p>&copy; <%= new Date().getFullYear() %> Library Management System. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
