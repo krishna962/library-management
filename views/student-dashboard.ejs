@@ -4,62 +4,186 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
-    <link rel="stylesheet" href="/css/student-dashboard.css">
-   
+    <link rel="icon" type="image/x-icon" href="/images/logo5.png">
+    <link rel="icon" href="/images/favicon.ico">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f6f9;
+        }
+
+        .navbar {
+            background-color: #4a90e2;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar .logo img {
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(to right, #4a90e2, #6fb1fc);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .highlight-name {
+            color: #ffc107;
+            font-size: 3.5rem;
+            font-family: 'Georgia', serif;
+            animation: popIn 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin: 1rem 0 2rem;
+        }
+
+        .hero button {
+            background-color: #fff;
+            color: #4a90e2;
+            padding: 0.75rem 1.5rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .dashboard-section, .profile-section {
+            padding: 2rem;
+            background: white;
+            margin: 2rem auto;
+            max-width: 1000px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .profile-img {
+            width: 150px;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .footer {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 4rem;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
+
+    <!-- 🔷 Navbar -->
     <nav class="navbar">
         <div class="logo">
             <img src="https://static.vecteezy.com/system/resources/previews/020/402/234/non_2x/library-book-reading-abstract-icon-or-emblem-vector.jpg" alt="Logo">
-            <span>Library Management</span>
+            <span><strong>Library Management</strong></span>
         </div>
         <ul>
             <li><a href="#profile">Profile</a></li>
             <li><a href="#issued-books">Issued Books</a></li>
             <li><a href="#order-tea">Order Tea</a></li>
             <li><a href="#fees">Pay Fees</a></li>
-            <li><a href="#logout" onclick="logout()">Logout</a></li>
+            <li><a href="#complaint">Raise Complaint</a></li>
+            <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
-    
+
+    <!-- 🌟 Hero Section -->
     <section class="hero">
-        <h1>Welcome to Your Student Dashboard</h1>
-        <p>Manage your books, payments, and more with ease.</p>
-        <button>Explore Now</button>
+        <h1>Welcome, <span class="highlight-name">Krishna</span> 👋</h1>
+        <p>Manage your books, tea orders, complaints, and more from your personalized dashboard.</p>
+        <button onclick="scrollToSection('profile')">Explore Your Profile</button>
     </section>
-    
-    <section id="profile" class="profile-section">
-        <img src="https://media.istockphoto.com/id/1369754239/photo/university-student-in-white-background-stock-photo.jpg?s=612x612&w=0&k=20&c=LjFVDfjusWBjYTNliHV9DyXfApPGc8DmgBGEtfVgQ0Q=" alt="Student Image" class="profile-img">
-        <div class="profile-info">
-            <h2 id="student-name">John Doe</h2>
-            <p>Email: <span id="student-email">johndoe@example.com</span></p>
-            <p>Class: <span id="student-class">B.Sc Computer Science</span></p>
-        </div>
-    </section>
-    
-    <section id="issued-books" class="dashboard-section">
-        <h2>Issued Books</h2>
-        <ul id="book-list">
-            <li>Book 1 - <button onclick="returnBook(1)">Return</button></li>
-            <li>Book 2 - <button onclick="returnBook(2)">Return</button></li>
-        </ul>
-    </section>
-    
-    <section id="order-tea" class="dashboard-section">
-        <h2>Order Tea</h2>
-        <button onclick="orderTea()">Order Now</button>
-    </section>
-    
-    <section id="fees" class="dashboard-section">
-        <h2>Pay Monthly Fee</h2>
-        <p>Total Fee: $500</p>
-        <button onclick="payFee()">Pay Now</button>
-    </section>
-    
+     <h1> Add a Image</h1>
+     <img src="/images/logo.png" alt="Library Logo" style="width: 200px; display: block; margin: 0 auto;">
+     
+     
+
+   
+    <!-- 🔻 Footer -->
     <footer class="footer">
-        <p>&copy; 2025 Library Management System</p>
+        <p>&copy; <%= new Date().getFullYear() %> Library Management System. All rights reserved.</p>
     </footer>
-    
-   <script src="/js/student-dashboard.js"></script>
+
+    <script>
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function returnBook(id) {
+            alert("Returning Book " + id);
+        }
+
+        function orderTea() {
+            alert("Your tea has been ordered! ☕");
+        }
+
+        function payFee() {
+            alert("Payment Successful ✅");
+        }
+
+        function submitComplaint() {
+            alert("Complaint submitted! We'll get back to you soon.");
+        }
+    </script>
 </body>
 </html>

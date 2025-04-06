@@ -14,6 +14,8 @@ const isAuthenticated = require('./middleware/auth');
 const adminRoutes = require('./routes/adminRoutes'); // 🆕 Import Admin Routes
 const bcrypt = require("bcryptjs"); // You’re using bcrypt in /register
 const User = require("./models/user"); // You use this in /register
+// const studentRoutes = require('./routes/student');
+const studentRoutes = require('./routes/student-dashboard'); // path might vary
 
 
 const app = express();
@@ -23,12 +25,17 @@ connectDB();
 // ✅ Set EJS as View Engine
 app.set("view engine", "ejs");
 // ✅ Middleware
+app.use((req, res, next) => {
+    console.log('Session:', req.session);
+    next();
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static("public")); // Serve static files
 app.use(express.static(path.join(__dirname, "public"))); // Ensure correct static file serving
 app.use(methodOverride("_method"));
-app.use(session({ secret: "librarySecret", resave: true, saveUninitialized: true }));
+app.use(session({ secret: "librarySecret", resave: true, saveUninitialized: false }));
 app.use(flash());
 app.use(cors()); // Allow frontend requests
 app.use("/", authRoutes); // ✅ Register authentication routes
@@ -48,10 +55,11 @@ app.use((req, res, next) => {
 });
 // app.use('/', adminRoutes);  // Ensure this line is correct
 
-
+app.use('/', studentRoutes); // or '/student' if you're using route prefixes
 // ✅ Routes
 app.use("/", require("./routes/authRoutes"));
 app.use("/books", require("./routes/bookRoutes"));
+app.use('/student', studentRoutes);
 // Use Admin Routes
 
 
@@ -135,6 +143,8 @@ app.post("/register", async (req, res) => {
     // Redirect with success message
     return res.redirect("/register?success=true");
 });
+
+
 
 
 

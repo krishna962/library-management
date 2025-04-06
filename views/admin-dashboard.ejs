@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="/images/logo5.png">
     <link rel="stylesheet" href="/css/admin-dashboard.css">
     <script src="/js/auth.js"></script>
 
@@ -17,7 +18,6 @@
             <li><a href="/admin-dashboard/view-students">View Students</a></li>
             <li><a href="/track-login">Track Logins</a></li>
             <li><a href="/admin-dashboard/add-book">Add Book</a></li>
-            <li><a href="/library-images">Library Images</a></li>
             <li><a href="/issued-books">Issued Books</a></li>
             <li><a href="/" class="logout-btn">Logout</a></li>
         </ul>
@@ -25,7 +25,7 @@
 
     <!-- Dashboard Main Section -->
     <section class="dashboard">
-        <div class="card" onclick="window.location.href='/view-students'">
+        <div class="card" onclick="window.location.href='/admin-dashboard/view-students'">
             <h3>📖 View Students</h3>
             <p>See all registered students</p>
         </div>
@@ -33,13 +33,9 @@
             <h3>🕵️ Track Logins</h3>
             <p>Check students who logged in</p>
         </div>
-        <div class="card" onclick="window.location.href='/add-book'">
+        <div class="card" onclick="window.location.href='/admin-dashboard/add-book'">
             <h3>📚 Add a Book</h3>
             <p>Add new books to the library</p>
-        </div>
-        <div class="card" onclick="window.location.href='/library-images'">
-            <h3>🏛️ Library Images</h3>
-            <p>View the current library section</p>
         </div>
         <div class="card" onclick="window.location.href='/issued-books'">
             <h3>📜 Issued Books</h3>
