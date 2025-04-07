@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us</title>
+  <link rel="icon" type="image/x-icon" href="/images/logo5.png">
+  <link rel="stylesheet" href="/css/contact.css">
+</head>
+<body>
+
+    <!-- 🌐 Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="#">Library Management</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/explore">Dashboard</a></li>
+      <li><a href="/contact">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  
+  <div class="contact-container">
+    <h1>Contact Us</h1>
+    <p>Please fill out the details below. Our team will reach out to you as soon as possible!</p>
+
+    
+
+    <form action="/contact" method="POST" onsubmit="return validateForm()">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="text" name="subject" placeholder="Subject" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+
+    <% if (success) { %>
+        <p class="success" id="successMessage">✅ Thank you for reaching out! Our team has received your message and will get back to you as soon as possible. We appreciate your patience and look forward to assisting you shortly.!</p>
+      <% } else if (error) { %>
+        <p class="error" id="errorMessage">❌ Failed to send message. Please try again.</p>
+      <% } %>
+
+  </div>
+ <!-- 📥 Footer -->
+  <footer class="footer">
+    <p>&copy; <%= new Date().getFullYear() %> Library Management. All rights reserved.</p>
+  </footer>
+
+  
+  <script>
+    function validateForm() {
+      const name = document.querySelector('[name="name"]').value.trim();
+      const email = document.querySelector('[name="email"]').value.trim();
+      const subject = document.querySelector('[name="subject"]').value.trim();
+      const message = document.querySelector('[name="message"]').value.trim();
+
+      if (!name || !email || !subject || !message) {
+        alert("All fields are required!");
+        return false;
+      }
+
+      return true;
+    }
+
+    // Auto-hide success/error messages after 10 seconds
+    window.onload = () => {
+      setTimeout(() => {
+        const successMsg = document.getElementById('successMessage');
+        const errorMsg = document.getElementById('errorMessage');
+
+        if (successMsg) successMsg.style.display = 'none';
+        if (errorMsg) errorMsg.style.display = 'none';
+      }, 10000);
+    };
+  </script>
+</body>
+</html>

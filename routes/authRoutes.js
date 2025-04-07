@@ -10,6 +10,8 @@ router.get("/register", (req, res) => {
 });
 
 
+
+
 // Registration Route
 router.post("/register", async (req, res) => {
     const { name, email, password, phone, address, role, userClass} = req.body;
@@ -125,26 +127,6 @@ router.post('/admin-login', (req, res) => {
 
 
 // to open student dashboard with name
-// 👇 Route to render student dashboard
-router.get('/student-dashboard', async (req, res) => {
-    try {
-        if (!req.session.user || req.session.user.role !== 'student') {
-            return res.redirect('/login');
-        }
-
-        const student = await User.findById(req.session.user._id);
-
-        if (!student) {
-            return res.redirect('/login');
-        }
-
-        res.render('student-dashboard', { student }); // ✅ This fixes the EJS error
-    } catch (err) {
-        console.error('Error loading student dashboard:', err);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
 
 
 module.exports = router;

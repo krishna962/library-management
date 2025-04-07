@@ -8,12 +8,12 @@ router.get('/student-dashboard', async (req, res) => {
     }
 
     try {
-        const student = await User.findById(req.session.user._id);
-        if (!student) return res.redirect('/login');
+        const user = await User.findById(req.session.user._id);
+        if (!user) return res.redirect('/login');
 
-        res.render('student-dashboard', { student });
-    } catch (error) {
-        console.error(error);
+        res.render('student-dashboard', { user });
+    } catch (err) {
+        console.error(err);
         res.redirect('/login');
     }
 });

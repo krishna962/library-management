@@ -16,6 +16,9 @@ const bcrypt = require("bcryptjs"); // You’re using bcrypt in /register
 const User = require("./models/user"); // You use this in /register
 // const studentRoutes = require('./routes/student');
 const studentRoutes = require('./routes/student-dashboard'); // path might vary
+const studentDashboardRoutes = require('./routes/student-dashboard');
+const contactRoutes = require('./routes/contactRoutes');
+const membershipRoutes = require('./routes/membershipRoutes');
 
 
 const app = express();
@@ -47,6 +50,8 @@ app.use((req, res, next) => {
     res.setHeader('Expires', '-1');
     next();
 });
+app.use('/', membershipRoutes);
+app.use('/', contactRoutes);
 // ✅ Flash Messages Middleware
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash("success_msg");
@@ -60,6 +65,7 @@ app.use('/', studentRoutes); // or '/student' if you're using route prefixes
 app.use("/", require("./routes/authRoutes"));
 app.use("/books", require("./routes/bookRoutes"));
 app.use('/student', studentRoutes);
+app.use(studentDashboardRoutes);
 // Use Admin Routes
 
 
