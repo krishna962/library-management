@@ -16,3 +16,25 @@
 
     cards.forEach(card => observer.observe(card));
   });
+
+
+// Add JavaScript to Trigger on Scroll
+  document.addEventListener("DOMContentLoaded", () => {
+    const faders = document.querySelectorAll(".fade-in");
+
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.style.opacity = "1";
+        entry.target.classList.add("animate");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    faders.forEach(el => {
+      appearOnScroll.observe(el);
+    });
+  });
+
+
+  

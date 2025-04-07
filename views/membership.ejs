@@ -5,10 +5,16 @@
   <title>Premium Membership</title>
   <link rel="stylesheet" href="/css/membership.css">
   <link rel="icon" type="image/x-icon" href="/images/logo5.png">
+  <!-- AOS Stylesheet -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
-  <nav class="premium-nav">
+  <nav class="premium-nav" data-aos="fade-down">
     <div class="logo">📘 PremiumZone</div>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
@@ -18,62 +24,59 @@
     </ul>
   </nav>
 
-  <header class="hero-section">
-    <h1>Unlock Premium Membership</h1>
+  <div class="starfield"></div>
+
+  <header class="hero-section" data-aos="fade-up">
+    <h1 id="typing-headline"></h1>
     <p>Experience the library like never before with exclusive features and perks.</p>
     <a href="#plans" class="btn-join">Join Now</a>
   </header>
 
-  <section class="benefits-section">
+  <section class="benefits-section" data-aos="fade-up">
     <h2>🌟 Premium Member Benefits</h2>
     <p class="benefits-subtext">Experience unmatched value with elite perks only for our premium members.</p>
-  
+
     <div class="benefit-cards">
-      <div class="card fade-in" style="background-image: url('/images/early-access.jpg');">
+      <div class="card glass" data-aos="flip-left" style="background-image: url('/images/early-access.jpg');">
         <div class="card-content">
           <h3>Early Access</h3>
           <p>First access to new releases, special editions & author signed copies.</p>
         </div>
       </div>
-      <div class="card fade-in" style="background-image: url('/images/unlimited.jpg');">
+      <div class="card glass" data-aos="flip-left" style="background-image: url('/images/unlimited.jpg');">
         <div class="card-content">
           <h3>Unlimited Borrowing</h3>
           <p>Read without limits. Borrow as many books as you like, anytime.</p>
         </div>
       </div>
-      <div class="card fade-in" style="background-image: url('/images/lounge.jpg');">
+      <div class="card glass" data-aos="flip-left" style="background-image: url('/images/lounge.jpg');">
         <div class="card-content">
           <h3>Exclusive Lounge</h3>
           <p>Enjoy a private, serene reading lounge with free Wi-Fi & beverages.</p>
         </div>
       </div>
-      <div class="card fade-in" style="background-image: url('/images/support.jpg');">
+      <div class="card glass" data-aos="flip-left" style="background-image: url('/images/support.jpg');">
         <div class="card-content">
           <h3>Priority Support</h3>
           <p>Skip the line with priority help from our expert support team.</p>
         </div>
       </div>
-
-      <!-- <div class="card fade-in" style="background-image: url('/images/group.jpg');">
-        <div class="card-content">
-          <h3>Priority Support</h3>
-          <p>Skip the line with priority help from our expert support team.</p>
-        </div>
-      </div> -->
-
-      
     </div>
   </section>
-  
-  
 
-
-  <section class="plans-section" id="plans">
+  <section class="plans-section" id="plans" data-aos="zoom-in-up">
     <h2>💎 Membership Plans</h2>
     <p class="plan-description">Choose the perfect plan for your reading needs. Save more with our recommended Annual Membership!</p>
-  
+
+    <div class="plans-toggle">
+      <label>
+        <input type="checkbox" id="toggle-plan">
+        <span class="toggle-slider"></span> Monthly ↔ Annual
+      </label>
+    </div>
+
     <div class="plans">
-      <div class="plan-card">
+      <div class="plan-card" data-aos="zoom-in">
         <h3>Monthly</h3>
         <p class="price">₹199 / month</p>
         <ul>
@@ -83,8 +86,8 @@
         </ul>
         <button class="btn-plan">Get Started</button>
       </div>
-  
-      <div class="plan-card highlighted">
+
+      <div class="plan-card highlighted" data-aos="zoom-in">
         <div class="badge">⭐ Recommended</div>
         <h3>Annual</h3>
         <p class="price">₹1999 / year</p>
@@ -97,8 +100,8 @@
       </div>
     </div>
   </section>
-  
-  <section class="comparison-section">
+
+  <section class="comparison-section" data-aos="fade-up">
     <h2>📊 Compare Plans</h2>
     <div class="comparison-table">
       <table>
@@ -124,11 +127,74 @@
       </table>
     </div>
   </section>
+
+  <section class="testimonial-section" data-aos="fade-up">
+    <h2>💬 What Our Members Say</h2>
+    <div class="testimonial-slider">
+     <p><div class="testimonial">“The best decision I ever made! Premium is totally worth it.” – Aditi S.</div></p> 
+      <p><div class="testimonial">“Love the early access to new arrivals. Lounge is amazing too!” – Rahul M.</div></p>
+      <p><div class="testimonial">“So convenient. The app and the support are super fast.” – Neha D.</div>
+      </div></p>
+  </section>
   
 
-  <footer class="premium-footer">
+  <footer class="premium-footer" data-aos="fade-in">
     <p>&copy; 2025 PremiumZone Library. All rights reserved.</p>
   </footer>
-<script src="/js/membership.js"></script>
+
+  <script src="/js/membership.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+
+    const phrases = [
+      "Unlock Premium Membership",
+      "Read Without Limits",
+      "Exclusive Perks for Readers",
+      "Join the Literary Elite"
+    ];
+
+    const typedText = document.getElementById("typing-headline");
+    const typingSpeed = 100;
+    const deletingSpeed = 50;
+    const pauseTime = 2000;
+
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeLoop() {
+      const currentPhrase = phrases[phraseIndex];
+      const currentText = currentPhrase.substring(0, charIndex);
+      typedText.textContent = currentText;
+
+      if (!isDeleting) {
+        if (charIndex < currentPhrase.length) {
+          charIndex++;
+          setTimeout(typeLoop, typingSpeed);
+        } else {
+          isDeleting = true;
+          setTimeout(typeLoop, pauseTime);
+        }
+      } else {
+        if (charIndex > 0) {
+          charIndex--;
+          setTimeout(typeLoop, deletingSpeed);
+        } else {
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          setTimeout(typeLoop, typingSpeed);
+        }
+      }
+    }
+
+    window.addEventListener("load", () => {
+      typeLoop();
+      gsap.from(".btn-plan", { y: 50, opacity: 0, duration: 5, stagger: 0.2 });
+    });
+
+
+    
+  </script>
 </body>
 </html>
