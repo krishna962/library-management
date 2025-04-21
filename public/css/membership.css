@@ -461,7 +461,7 @@ body {
 /* hero */
 
 .hero-section {
-  /* background-image: url('/images/premium-bg.jpg'); */
+  /* background-image: url('https://t4.ftcdn.net/jpg/09/27/39/11/360_F_927391184_iTsHODEQPIFz7AnAHFSZIDmmmXMoMYli.jpg');  */
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
@@ -493,7 +493,7 @@ html {
 
 /* --add: Parallax Background */
 .hero-section {
-  background: url('/images/hero-bg.jpg') center/cover fixed no-repeat;
+  background: url('https://t4.ftcdn.net/jpg/09/27/39/11/360_F_927391184_iTsHODEQPIFz7AnAHFSZIDmmmXMoMYli.jpg') center/cover fixed no-repeat;
   padding: 150px 20px;
   color: white;
   text-align: center;

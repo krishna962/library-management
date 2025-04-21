@@ -19,6 +19,7 @@ const studentRoutes = require('./routes/student-dashboard'); // path might vary
 const studentDashboardRoutes = require('./routes/student-dashboard');
 const contactRoutes = require('./routes/contactRoutes');
 const membershipRoutes = require('./routes/membershipRoutes');
+const bookRoutes = require("./routes/bookRoutes"); // adjust path as needed
 
 
 const app = express();
@@ -50,6 +51,7 @@ app.use((req, res, next) => {
     res.setHeader('Expires', '-1');
     next();
 });
+// app.use("/", bookRoutes); // or app.use("/book", bookRoutes);
 app.use('/', membershipRoutes);
 app.use('/', contactRoutes);
 // ✅ Flash Messages Middleware
@@ -67,6 +69,7 @@ app.use("/books", require("./routes/bookRoutes"));
 app.use('/student', studentRoutes);
 app.use(studentDashboardRoutes);
 // Use Admin Routes
+app.use('/books', bookRoutes);
 
 
 // ✅ Homepage Route

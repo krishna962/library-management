@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const Book = require("../models/book");
+const Book = require("../models/Book");
+const Issue = require('../models/Issue'); // You need to create this model
+const { ensureLoggedIn } = require('../middleware/auth'); // Optional middleware for auth
 
 // Get all books
 router.get("/", async (req, res) => {
@@ -42,4 +44,55 @@ router.delete("/delete/:id", async (req, res) => {
     res.redirect("/books");
 });
 
+
+// for index page view book
+// router.get("/book", (req, res) => {
+//     res.render("book"); // or send a response like res.send("Book Page")
+// });
+
+router.get('/books', async (req, res) => {
+    try {
+      const books = await Book.find();
+  
+      console.log("Session User:", req.session.user); // ✅ See if this logs correctly
+  
+      res.render('books', {
+        books,
+        user: req.session.user || null // 👈 very important
+      });
+    } catch (err) {
+      console.error("Error fetching books:", err);
+      res.status(500).send("Something went wrong!");
+    }
+  });
+
+
+  // POST route to handle book issuing
+router.post('/issue-book', async (req, res) => {
+    try {
+      if (!req.session.user || req.session.user.role !== 'student') {
+        return res.redirect('/login');
+      }
+  
+      const studentId = req.session.user._id;
+      const { bookId } = req.body;
+  
+      // Save issue record
+      const issue = new Issue({
+        student: studentId,
+        book: bookId,
+        issuedAt: new Date()
+      });
+  
+      await issue.save();
+  
+      res.redirect('/books');
+    } catch (error) {
+      console.error('Error issuing book:', error);
+      res.status(500).send('Something went wrong.');
+    }
+  });
+  
+  
+  
 module.exports = router;
