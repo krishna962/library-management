@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require('dotenv').config(); // Load environment variables from .env file
 const session = require("express-session");
 const flash = require("connect-flash");
 const bodyParser = require("body-parser");
@@ -20,17 +21,56 @@ const studentDashboardRoutes = require('./routes/student-dashboard');
 const contactRoutes = require('./routes/contactRoutes');
 const membershipRoutes = require('./routes/membershipRoutes');
 const bookRoutes = require("./routes/bookRoutes"); // adjust path as needed
+const createAdmin = require("./utils/createAdmin");
+
 
 
 const app = express();
 
 // ✅ Connect to MongoDB (Only Once)
-connectDB();
+// ✅ Connect to MongoDB
+connectDB().then(async () => {
+    console.log("✅ MongoDB Connected");
+
+    // ✅ Create Default Admin After DB Connects
+    const adminExists = await User.findOne({ email: "admin@example.com" });
+    if (!adminExists) {
+        const hashedPassword = await bcrypt.hash("Admin@123", 10);
+        await new User({
+            name: "Admin",
+            email: "admin@example.com",
+            password: hashedPassword,
+            phone: "9999999999",
+            address: "Admin HQ",
+            userClass: "admin",
+            role: "admin"
+        }).save();
+        console.log("✅ Default admin created.");
+    } else {
+        console.log("ℹ️ Admin already exists.");
+    }
+});
+
+
+createAdmin(); // Create default admin if not exists
+// ✅ Middleware
 // ✅ Set EJS as View Engine
 app.set("view engine", "ejs");
 // ✅ Middleware
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+}));
+
 app.use((req, res, next) => {
     console.log('Session:', req.session);
+    next();
+});
+
+app.use((req, res, next) => {
+    console.log("🧠 Logged-in user session:", req.session.user);
     next();
 });
 
@@ -39,7 +79,6 @@ app.use(bodyParser.json());
 app.use(express.static("public")); // Serve static files
 app.use(express.static(path.join(__dirname, "public"))); // Ensure correct static file serving
 app.use(methodOverride("_method"));
-app.use(session({ secret: "librarySecret", resave: true, saveUninitialized: false }));
 app.use(flash());
 app.use(cors()); // Allow frontend requests
 app.use("/", authRoutes); // ✅ Register authentication routes

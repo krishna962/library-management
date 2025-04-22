@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+require("dotenv").config(); // Load env variables
 
 const connectDB = async () => {
     try {
-        await mongoose.connect("mongodb://localhost:27017/libraryDB", {
+        await mongoose.connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
@@ -13,4 +14,4 @@ const connectDB = async () => {
     }
 };
 
-module.exports = connectDB; // ✅ Export connectDB function
+module.exports = connectDB;

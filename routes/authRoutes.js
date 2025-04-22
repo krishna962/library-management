@@ -2,68 +2,110 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const router = express.Router();
-const jwt = require("jsonwebtoken");
+const isAuthenticated = require("../middleware/auth"); // ✅ You forgot to require this originally
 
-// Register page
+// ✅ Render Register Page
 router.get("/register", (req, res) => {
     res.render("register");
 });
 
+// ✅ Render Login Page
+router.get("/login", (req, res) => {
+    res.render("login"); // Ensure login.ejs exists
+});
 
+// ✅ Admin Dashboard - Protected
+router.get("/admin-dashboard", isAuthenticated, (req, res) => {
+    res.render("admin-dashboard", { user: req.session.user });
+});
 
+// ✅ Student Dashboard - Protected
+router.get("/student-dashboard", isAuthenticated, (req, res) => {
+    res.render("student-dashboard", { user: req.session.user });
+});
 
-// Registration Route
+// ✅ Register Route
+// ✅ Register Route
 router.post("/register", async (req, res) => {
-    const { name, email, password, phone, address, role, userClass} = req.body;
-    
+    const { name, email, password, phone, address, userClass, role } = req.body;
+
     try {
-        // Check if user already exists (by email OR phone)
         const existingUser = await User.findOne({ $or: [{ email }, { phone }] });
         if (existingUser) {
-            return res.redirect("/register?error=exists");
+            req.flash("error_msg", "Email or phone already registered.");
+            return res.redirect("/register");
         }
 
-        // Hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // Remove the manual password hashing part
+        const newUser = new User({
+            name,
+            email,
+            password,  // 👈 Use the plain password directly here
+            phone,
+            address,
+            userClass,
+            role: role || "student"
+        });
 
-        // Save new user
-        const newUser = new User({ name, email, password: hashedPassword, phone, address, role, userClass });
         await newUser.save();
-
-        // Redirect to registration page with success message
-        return res.redirect("/register?success=true");
-
+        req.flash("success_msg", "Registration successful. Please login.");
+        res.redirect("/login");
     } catch (err) {
-        console.error("Error registering user:", err);
-        res.redirect("/register?error=server");
+        console.error("Registration Error:", err);
+        req.flash("error_msg", "Something went wrong. Try again.");
+        res.redirect("/register");
     }
 });
 
 
+// ✅ Login Route
+// ✅ Login Route
 router.post("/login", async (req, res) => {
-    try {
-        const { emailOrPhone, password } = req.body;
+    const { emailOrPhone, password } = req.body;
 
-        // Check if user exists using email or phone number
+    console.log("🔐 Login attempt with:", emailOrPhone);
+
+    // 🔒 Hardcoded Admin Check
+    if (emailOrPhone === "admin@example.com" && password === "Admin@123") {
+        req.session.user = { id: "admin", name: "Admin", role: "admin" };
+        console.log("✅ Admin logged in:", req.session.user);
+        req.flash("success_msg", "Welcome, Admin!");
+        return res.redirect("/admin-dashboard");
+    }
+
+    try {
+        // 🔍 Look for student in DB
         const user = await User.findOne({
-            $or: [{ email: emailOrPhone }, { phone: emailOrPhone }],
+            $or: [{ email: emailOrPhone }, { phone: emailOrPhone }]
         });
 
+        console.log("👉 Found user:", user);
+
         if (!user) {
-            req.flash("error_msg", "Invalid email or phone number");
+            req.flash("error_msg", "❌ Invalid email or phone number.");
+            console.log("❌ User not found.");
             return res.redirect("/login");
         }
 
-        // Compare entered password with hashed password
+        // 🔑 Compare password
         const isMatch = await bcrypt.compare(password, user.password);
+        console.log("🔐 Password match:", isMatch);
+
         if (!isMatch) {
-            req.flash("error_msg", "Invalid password");
+            req.flash("error_msg", "❌ Incorrect password.");
             return res.redirect("/login");
         }
 
-        // Store user role in session
-        req.session.user = { id: user._id, role: user.role };
+        // 🧠 Store session
+        req.session.user = {
+            id: user._id,
+            name: user.name,
+            role: user.role
+        };
 
+        console.log("✅ Student logged in:", req.session.user);
+
+        // 🧭 Redirect based on role
         if (user.role === "admin") {
             req.flash("success_msg", "Welcome, Admin!");
             return res.redirect("/admin-dashboard");
@@ -72,61 +114,23 @@ router.post("/login", async (req, res) => {
             return res.redirect("/student-dashboard");
         }
 
-    } catch (error) {
-        console.error("Login Error:", error);
-        req.flash("error_msg", "Login failed. Please try again.");
+    } catch (err) {
+        console.error("❌ Login error:", err.message);
+        req.flash("error_msg", "Login failed.");
         res.redirect("/login");
     }
 });
 
 
-// for alert msg
-router.post("/register", async (req, res) => {
-    try {
-        // Save user data to database
-        const newUser = new User(req.body);
-        await newUser.save();
 
-        // Redirect with success flag
-        res.redirect("/register?success=true");
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Registration failed");
-    }
-});
 
-// Route for student dashboard
-router.get("/student-dashboard", (req, res) => {
-    res.render("student-dashboard"); // This will render student-dashboard.ejs
-});
 
-// logout
+
+// ✅ Logout
 router.get("/logout", (req, res) => {
     req.session.destroy(() => {
         res.redirect("/");
     });
 });
-
-router.get("/login", (req, res) => {
-    res.render("login"); // Make sure you have a 'login.ejs' file inside the 'views' folder
-});
-
-
-// logout handling of admin
-router.post('/admin-login', (req, res) => {
-    const { username, password } = req.body;
-
-    if (username === "admin" && password === "securepassword") {
-        req.session.admin = { username }; // Store admin session
-        res.redirect('/admin-dashboard');
-    } else {
-        res.render('admin-login', { error: "Invalid Credentials" });
-    }
-});
-
-
-
-// to open student dashboard with name
-
 
 module.exports = router;

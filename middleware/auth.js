@@ -1,12 +1,12 @@
-module.exports = {
-    isAuthenticated: (req, res, next) => {
-        if (req.session.user) {
-            return next(); // Allow access
-        }
-        req.flash("error_msg", "Please log in to access this page");
-        res.redirect("/login");
-    },
-}
+module.exports = (req, res, next) => {
+    if (req.session && req.session.user) {
+        return next();
+    } else {
+        req.flash("error_msg", "Please log in to continue.");
+        return res.redirect("/login");
+    }
+};
+
 
 
 
