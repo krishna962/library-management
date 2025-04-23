@@ -165,3 +165,96 @@ button {
     border-radius: 8px;
     cursor: pointer;
 }
+
+
+/* responsive */
+/* 🌐 Reset + Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background: #f5f7fa;
+    color: #333;
+    padding: 0 15px;
+  }
+
+  /* 🔷 Navbar */
+  .navbar {
+    background: #0d47a1;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+  .navbar .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  .navbar .logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 0;
+  }
+  .navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .navbar ul li a:hover {
+    text-decoration: underline;
+  }
+
+  /* 🌟 Hero Section */
+  .hero {
+    text-align: center;
+    margin: 2rem 0;
+  }
+  .highlight-name {
+    color: #0d47a1;
+    font-weight: bold;
+  }
+
+  /* 📱 Responsive Layout */
+  @media (min-width: 768px) {
+    .navbar {
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+    }
+    .navbar .logo {
+      margin-bottom: 0;
+    }
+    .navbar ul {
+      gap: 20px;
+    }
+    .hero {
+      text-align: left;
+      max-width: 800px;
+      margin: 2rem auto;
+    }
+  }
+
+  /* 🔻 Footer */
+  .footer {
+    margin-top: 40px;
+    padding: 1rem 0;
+    text-align: center;
+    background-color: #e3e3e3;
+    color: #555;
+  }

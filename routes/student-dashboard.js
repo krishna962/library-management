@@ -19,7 +19,15 @@ router.get('/student-dashboard', async (req, res) => {
 });
 
 
-// for session undefined
+// for profile
+// GET: Student Profile Page
+router.get('/student-dashboard/profile', (req, res) => {
+    if (!req.session.user) {
+      return res.redirect('/login');
+    }
+    res.render('profile', { user: req.session.user });
+  });
+  
 
 
 module.exports = router;

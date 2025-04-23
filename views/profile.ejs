@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Profile</title>
+  <link rel="stylesheet" href="/css/profile.css" />
+  <link rel="icon" type="image/x-icon" href="/images/logo5.png" />
+  <style>
+   
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div><strong>Library Portal</strong></div>
+    <div>
+      <a href="/student-dashboard">Dashboard</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Profile Section -->
+  <div class="profile-section">
+    <h2>Your Profile</h2>
+    <img class="profile-pic" src="<%= user.profilePic || '/images/default-profile.jpg' %>" alt="Profile Picture" />
+    <p><strong>Name:</strong> <%= user.name %></p>
+    <p><strong>Email:</strong> <%= user.email %></p>
+    <p><strong>Phone:</strong> <%= user.phone %></p>
+    <p><strong>Class:</strong> <%= user.userClass %></p>
+    <p><strong>Address:</strong> <%= user.address %></p>
+
+    <button class="btn" onclick="toggleEditForm()">Edit Profile</button>
+
+<form id="editForm" action="/update-profile" method="POST" enctype="multipart/form-data" style="display:none;">
+  <input type="text" name="name" placeholder="New Name" value="<%= user.name %>" required>
+  <input type="text" name="phone" placeholder="New Phone" value="<%= user.phone %>" required>
+  <label for="userClass">Select Class:</label>
+<select name="userClass" id="userClass" required>
+  <% const classes = ['5', '6', '7', '8', '9', '10', '11', '12', 'Bachelor', 'Master']; %>
+  <% classes.forEach(cls => { %>
+    <option value="<%= cls %>" <%= user.userClass == cls ? 'selected' : '' %>><%= cls %></option>
+  <% }) %>
+</select>
+
+  
+  <label>Change Profile Picture:</label>
+  <input type="file" name="profilePic" accept="image/*" onchange="previewImage(event)">
+
+  <img id="preview" class="profile-pic" style="display:none;" />
+
+  <button type="submit" class="btn">Save Changes</button>
+</form>
+
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Library Portal | All rights reserved
+  </footer>
+
+  <!-- JS Preview Function -->
+  <script>
+     function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+      const output = document.getElementById('preview');
+      output.src = reader.result;
+      output.style.display = 'block';
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+  function toggleEditForm() {
+    const form = document.getElementById('editForm');
+    if (form.style.display === 'none') {
+      form.style.display = 'block';
+    } else {
+      form.style.display = 'none';
+    }
+  }
+  </script>
+</body>
+</html>
