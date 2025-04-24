@@ -14,7 +14,7 @@ const authRoutes = require("./routes/authRoutes"); // Add this line to import au
 const isAuthenticated = require('./middleware/auth');
 const adminRoutes = require('./routes/adminRoutes'); // 🆕 Import Admin Routes
 const bcrypt = require("bcryptjs"); // You’re using bcrypt in /register
-const User = require("./models/user"); // You use this in /register
+const User = require("./models/User"); // You use this in /register
 // const studentRoutes = require('./routes/student');
 const studentRoutes = require('./routes/student-dashboard'); // path might vary
 const studentDashboardRoutes = require('./routes/student-dashboard');
@@ -22,6 +22,7 @@ const contactRoutes = require('./routes/contactRoutes');
 const membershipRoutes = require('./routes/membershipRoutes');
 const bookRoutes = require("./routes/bookRoutes"); // adjust path as needed
 const createAdmin = require("./utils/createAdmin");
+const profileRoutes = require('./routes/profileRoutes');
 
 
 
@@ -73,6 +74,7 @@ app.use((req, res, next) => {
     console.log("🧠 Logged-in user session:", req.session.user);
     next();
 });
+app.use("/profile", require('./routes/profileRoutes'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -93,6 +95,7 @@ app.use((req, res, next) => {
 // app.use("/", bookRoutes); // or app.use("/book", bookRoutes);
 app.use('/', membershipRoutes);
 app.use('/', contactRoutes);
+// app.use("/profile", profileRoutes); // ✅ Changed to /profile for clarity
 // ✅ Flash Messages Middleware
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash("success_msg");

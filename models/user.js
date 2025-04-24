@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
     address: { type: String, required: true },
     userClass: { type: String, required: true },
     role: { type: String, enum: ["student", "admin"], required: true },
+    profilePic: String,
     password: { type: String, required: true }
 }, {
     timestamps: true  // ✅ This will add createdAt and updatedAt fields automatically

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user'); // adjust path if needed
+const User = require('../models/User'); // adjust path if needed
 
 router.get('/student-dashboard', async (req, res) => {
     if (!req.session.user || req.session.user.role !== 'student') {

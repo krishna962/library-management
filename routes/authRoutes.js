@@ -1,6 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
-const User = require("../models/user");
+const User = require("../models/User");
 const router = express.Router();
 const isAuthenticated = require("../middleware/auth"); // ✅ You forgot to require this originally
 
@@ -44,6 +44,7 @@ router.post("/register", async (req, res) => {
             phone,
             address,
             userClass,
+            profilePic: req.file ? req.file.path : null, // Handle file upload if needed
             role: role || "student"
         });
 
@@ -105,6 +106,7 @@ router.post("/login", async (req, res) => {
             userClass: user.userClass,
             address: user.address,
             createdAt: user.createdAt,
+            profilePic: user.profilePic,
             role: user.role
         };
 
