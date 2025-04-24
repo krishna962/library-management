@@ -4,23 +4,309 @@
     <meta charset="UTF-8">
     <title>My Complaints</title>
     <link rel="stylesheet" href="/css/complaints.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f6f8;
+        }
+
+        .navbar {
+            background: #117fec;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-back-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    background-color: #1780e2;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-back-link:hover {
+    background-color: #1982ec;
+}
+
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .filter-container {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-container select, .filter-container button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .filter-container button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .filter-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .complaint-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            border-left: 5px solid #ccc;
+            transition: border-color 0.3s;
+        }
+
+        .complaint-box.new {
+            border-left-color: #ffc107;
+        }
+
+        .complaint-box.replied {
+            border-left-color: #28a745;
+        }
+
+        .complaint-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .profile-pic {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .complaint-info h3 {
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        .complaint-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .date {
+            display: block;
+            margin-top: 5px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #2c3e50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+}
+
+.back-button:hover {
+    background-color: #1a252f;
+}
+
+        .admin-reply {
+            background: #eafaf1;
+            border-left: 5px solid #28a745;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .admin-name {
+            font-size: 13px;
+            color: #666;
+        }
+
+        form textarea {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            resize: vertical;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+
+        form button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .pagination a {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .pagination a:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            background: #0c7ae9;
+            color: #ddd;
+            text-align: center;
+            padding: 15px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .complaint-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .profile-pic {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar">Student Dashboard</div>
+
+    <!-- Navbar -->
+    <!-- Navbar -->
+<div class="navbar">
+    <div class="nav-container">
+        <div class="logo">Student Complaints Dashboard</div>
+        <a href="/student-dashboard" class="nav-back-link">⬅ Back to Dashboard</a>
+    </div>
+</div>
+
+
     <div class="container">
-        <h2>📋 My Complaints</h2>
+        <h2>📋 Students Complaints</h2>
+
+        <!-- Enhanced Status Filter with Search and Sort -->
+        <div class="filter-container">
+            <form method="GET" action="/student-dashboard/view-complaints" style="flex-grow: 1;">
+                <select name="status" style="width: 48%; margin-right: 10px;">
+                    <option value="">All</option>
+                    <option value="new" <%= status === 'new' ? 'selected' : '' %>>New</option>
+                    <option value="replied" <%= status === 'replied' ? 'selected' : '' %>>Replied</option>
+                </select>
+
+                <select name="sort" style="width: 48%; margin-right: 10px;">
+                    <option value="date" <%= sort === 'date' ? 'selected' : '' %>>Sort by Date</option>
+                    <option value="subject" <%= sort === 'subject' ? 'selected' : '' %>>Sort by Subject</option>
+                </select>
+
+                <button type="submit">Apply Filters</button>
+            </form>
+        </div>
+
         <% if (complaints.length === 0) { %>
             <p>You haven't raised any complaints yet.</p>
         <% } else { %>
             <% complaints.forEach(c => { %>
-                <div class="complaint-box">
+                <div class="complaint-box <%= c.reply ? 'replied' : 'new' %>">
                     <h3><%= c.subject %></h3>
                     <p><%= c.message %></p>
                     <span class="date">Submitted on: <%= c.createdAt.toDateString() %></span>
+
+                    <!-- Show Admin Reply if available -->
+                    <% if (c.reply) { %>
+                        <div class="admin-reply">
+                            <p><strong>Admin Reply:</strong> <%= c.reply %></p>
+                        </div>
+                    <% } %>
                 </div>
             <% }) %>
+
+            <!-- Pagination Controls -->
+            <div class="pagination">
+                <% if (page > 1) { %>
+                    <a href="/student-dashboard/view-complaints?status=<%= status %>&sort=<%= sort %>&page=<%= page - 1 %>">Previous</a>
+                <% } %>
+
+                <% if (page < totalPages) { %>
+                    <a href="/student-dashboard/view-complaints?status=<%= status %>&sort=<%= sort %>&page=<%= page + 1 %>">Next</a>
+                <% } %>
+            </div>
         <% } %>
-        <a class="back-link" href="/student-dashboard">⬅ Back to Dashboard</a>
+
+        <a href="/student-dashboard" class="back-button">⬅ Back to Dashboard</a>
+
     </div>
+<br><br>
+    <!-- Footer -->
+    <div class="footer">
+        &copy; <%= new Date().getFullYear() %> Library Management System | Student Panel
+    </div>
+
 </body>
 </html>

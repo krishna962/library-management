@@ -170,13 +170,46 @@ router.post('/change-password', async (req, res) => {
     if (!req.session.user || req.session.user.role !== 'student') {
         return res.redirect('/login');
     }
+
     try {
-        const complaints = await Complaint.find({ userId: req.session.user._id }).sort({ createdAt: -1 });
-        res.render('student-complaints', { user: req.session.user, complaints });
+        const { status, page = 1, sort = 'date' } = req.query; // Get the status, page, and sort options from the query
+        const limit = 5; // Number of complaints per page
+        const skip = (page - 1) * limit;
+
+        // Build filter based on complaint status
+        let filter = { userId: req.session.user._id };
+        if (status === 'new') {
+            filter.reply = null; // New complaints have no replies
+        } else if (status === 'replied') {
+            filter.reply = { $ne: null }; // Complaints that have a reply
+        }
+
+        // Sorting logic (by subject or creation date)
+        const sortOrder = sort === 'subject' ? { subject: 1 } : { createdAt: -1 };
+
+        // Get the complaints based on the filter, sorting, and pagination
+        const complaints = await Complaint.find(filter)
+            .sort(sortOrder)
+            .skip(skip)
+            .limit(limit);
+        
+        const totalComplaints = await Complaint.countDocuments(filter); // Count total complaints for pagination
+        const totalPages = Math.ceil(totalComplaints / limit); // Calculate the total pages
+
+        res.render('student-complaints', {
+            user: req.session.user,
+            complaints,
+            status, // Pass the status to the template
+            sort,   // Pass the sorting option to the template
+            page,   // Pass the current page number
+            totalPages, // Pass the total pages count
+            hasMore: page < totalPages, // Check if there's another page
+        });
     } catch (err) {
         res.status(500).send("Something went wrong.");
     }
 });
+
 
 
 // Route to view all complaints in the admin dashboard
