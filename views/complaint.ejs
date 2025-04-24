@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Raise Complaint</title>
+    <link rel="stylesheet" href="/css/complaint.css">
+</head>
+<body>
+
+    <!-- ✅ Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/student-dashboard" class="logo">📚 Library System</a>
+            <!-- <ul class="nav-links">
+                <li><a href="/student-dashboard">Dashboard</a></li>
+            </ul> -->
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>📝 Raise a Complaint</h1>
+        <p>Hello <strong><%= user.name %></strong>, use the form below to submit your issue.</p>
+
+        <!-- ✅ Success/Error Alerts -->
+        <% if (success_msg && success_msg.length > 0) { %>
+            <div class="alert success" id="success-msg"><%= success_msg %> Our team will solve it as soon as possible.</div>
+        <% } %>
+        <% if (error_msg && error_msg.length > 0) { %>
+            <div class="alert error" id="error-msg"><%= error_msg %></div>
+        <% } %>
+
+        <!-- ✅ Complaint Form -->
+        <form action="/student-dashboard/complaint" method="POST">
+            <input type="text" name="subject" placeholder="Subject" required>
+            <textarea name="message" placeholder="Describe your issue..." required></textarea>
+            <button type="submit">Submit Complaint</button>
+        </form>
+
+        <a href="/student-dashboard" class="back-link">⬅ Back to Dashboard</a>
+    </div>
+
+    <!-- ✅ Footer -->
+    <footer class="footer">
+        <p>&copy; <%= new Date().getFullYear() %> Library Management System. All rights reserved.</p>
+    </footer>
+
+    <!-- ✅ Hide messages after 5 seconds -->
+    <script>
+        window.onload = function() {
+            const success = document.getElementById('success-msg');
+            const error = document.getElementById('error-msg');
+
+            if (success) {
+                setTimeout(() => { success.style.display = 'none'; }, 5000);
+            }
+
+            if (error) {
+                setTimeout(() => { error.style.display = 'none'; }, 5000);
+            }
+        };
+    </script>
+
+</body>
+</html>
