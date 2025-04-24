@@ -129,7 +129,36 @@ router.post("/login", async (req, res) => {
 
 
 
-
+// for chnage password 
+router.post('/change-password', async (req, res) => {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+  
+    if (!req.session.user) {
+      return res.redirect('/login');
+    }
+  
+    if (newPassword !== confirmPassword) {
+      return res.send('New passwords do not match.');
+    }
+  
+    try {
+      const user = await User.findById(req.session.user._id);
+      const isMatch = await bcrypt.compare(currentPassword, user.password);
+  
+      if (!isMatch) {
+        return res.send('Current password is incorrect.');
+      }
+  
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+      await user.save();
+  
+      res.send('Password successfully updated!');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error while changing password.');
+    }
+  });
 
 // ✅ Logout
 router.get("/logout", (req, res) => {

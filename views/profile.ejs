@@ -31,18 +31,33 @@
     <p><strong>Class:</strong> <%= user.userClass %></p>
     <p><strong>Address:</strong> <%= user.address %></p>
 
-    <button class="btn" onclick="toggleEditForm()">Edit Profile</button>
+    <button class="btn" id="toggleEditBtn" onclick="toggleEditForm()">Edit Profile</button>
+<button class="btn" id="togglePasswordBtn" onclick="togglePasswordForm()">Change Password</button>
+
 
 <form id="editForm" action="/update-profile" method="POST" enctype="multipart/form-data" style="display:none;">
   <input type="text" name="name" placeholder="New Name" value="<%= user.name %>" required>
   <input type="text" name="phone" placeholder="New Phone" value="<%= user.phone %>" required>
+  <input type="text" name="address" placeholder="New Address" value="<%= user.address %>" required>
+
   <label for="userClass">Select Class:</label>
-<select name="userClass" id="userClass" required>
-  <% const classes = ['5', '6', '7', '8', '9', '10', '11', '12', 'Bachelor', 'Master']; %>
-  <% classes.forEach(cls => { %>
-    <option value="<%= cls %>" <%= user.userClass == cls ? 'selected' : '' %>><%= cls %></option>
-  <% }) %>
-</select>
+  <select name="userClass" id="userClass" required>
+    <option value="" disabled <%= !user.userClass ? 'selected' : '' %>>Select your new class</option>
+    <option value="5" <%= user.userClass == '5' ? 'selected' : '' %>>5</option>
+    <option value="6" <%= user.userClass == '6' ? 'selected' : '' %>>6</option>
+    <option value="7" <%= user.userClass == '7' ? 'selected' : '' %>>7</option>
+    <option value="8" <%= user.userClass == '8' ? 'selected' : '' %>>8</option>
+    <option value="9" <%= user.userClass == '9' ? 'selected' : '' %>>9</option>
+    <option value="10" <%= user.userClass == '10' ? 'selected' : '' %>>10</option>
+    <option value="11" <%= user.userClass == '11' ? 'selected' : '' %>>11</option>
+    <option value="12" <%= user.userClass == '12' ? 'selected' : '' %>>12</option>
+    <option value="Bachelor" <%= user.userClass == 'Bachelor' ? 'selected' : '' %>>Bachelor</option>
+    <option value="Master" <%= user.userClass == 'Master' ? 'selected' : '' %>>Master</option>
+  </select>
+  
+
+  
+  
 
   
   <label>Change Profile Picture:</label>
@@ -54,31 +69,27 @@
 </form>
 
 
+<!-- Change Password Button -->
+
+
+<!-- Change Password Form -->
+<!-- 🔒 Hidden Change Password Form -->
+<form id="changePasswordForm" action="/change-password" method="POST" style="display: none; margin-top: 20px;">
+  <h3 style="color: #1a237e;">Change Password</h3>
+  <input type="password" name="currentPassword" placeholder="Current Password" required />
+  <input type="password" name="newPassword" placeholder="New Password" required />
+  <input type="password" name="confirmPassword" placeholder="Confirm New Password" required />
+  <button type="submit" class="btn">Update Password</button>
+</form>
+
+
+
   <!-- Footer -->
   <footer>
     © 2025 Library Portal | All rights reserved
   </footer>
 
   <!-- JS Preview Function -->
-  <script>
-     function previewImage(event) {
-    const reader = new FileReader();
-    reader.onload = function() {
-      const output = document.getElementById('preview');
-      output.src = reader.result;
-      output.style.display = 'block';
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  }
-
-  function toggleEditForm() {
-    const form = document.getElementById('editForm');
-    if (form.style.display === 'none') {
-      form.style.display = 'block';
-    } else {
-      form.style.display = 'none';
-    }
-  }
-  </script>
+  <script src="/js/profile.js"></script>
 </body>
 </html>
