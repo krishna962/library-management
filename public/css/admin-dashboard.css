@@ -214,3 +214,184 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* make navbar sticky and add shadow on scroll and responsive design for mobile view */
+
+.navbar {
+    position: sticky;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background: #222;
+    color: white;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}

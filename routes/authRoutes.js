@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const router = express.Router();
 const isAuthenticated = require("../middleware/auth"); // ✅ You forgot to require this originally
+const Complaint = require('../models/Complaint');
 
 // ✅ Render Register Page
 router.get("/register", (req, res) => {
@@ -161,6 +162,66 @@ router.post('/change-password', async (req, res) => {
       res.status(500).send('Server error while changing password.');
     }
   });
+
+
+
+  // for complaint student
+  router.get('/student-dashboard/view-complaints', async (req, res) => {
+    if (!req.session.user || req.session.user.role !== 'student') {
+        return res.redirect('/login');
+    }
+    try {
+        const complaints = await Complaint.find({ userId: req.session.user._id }).sort({ createdAt: -1 });
+        res.render('student-complaints', { user: req.session.user, complaints });
+    } catch (err) {
+        res.status(500).send("Something went wrong.");
+    }
+});
+
+
+// Route to view all complaints in the admin dashboard
+router.get('/admin-dashboard/view-complaints', async (req, res) => {
+    // Check if the user is logged in and has the 'admin' role
+    if (!req.session.user || req.session.user.role !== 'admin') {
+        return res.redirect('/login'); // Redirect to login if not an admin
+    }
+    
+    try {
+        // Fetch all complaints, sorted by the most recent (createdAt: -1)
+        const complaints = await Complaint.find({}).sort({ createdAt: -1 });
+        
+        // Render the admin complaints page, passing the user info and complaints data
+        res.render('admin-complaints', { user: req.session.user, complaints });
+    } catch (err) {
+        // Handle any errors (e.g., database connection issues)
+        res.status(500).send("Something went wrong.");
+    }
+});
+
+// Admin Reply to Complaint
+// Route to handle admin's reply to a specific complaint
+router.post('/admin-dashboard/reply/:complaintId', async (req, res) => {
+    const { complaintId } = req.params;
+    const { reply } = req.body;
+
+    try {
+        const complaint = await Complaint.findById(complaintId);
+        if (!complaint) return res.status(404).send("Complaint not found.");
+
+        console.log("Session User:", req.session.user); // Debug
+        console.log("Reply:", reply); // Debug
+
+        complaint.reply = reply;
+        complaint.adminReplyBy = req.session.user.name || "Admin";
+        await complaint.save();
+
+        res.redirect('/admin-dashboard/view-complaints');
+    } catch (err) {
+        console.error("Error replying to complaint:", err); // See error in terminal
+        res.status(500).send("Something went wrong.");
+    }
+});
+
 
 // ✅ Logout
 router.get("/logout", (req, res) => {

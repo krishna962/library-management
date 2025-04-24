@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Complaints</title>
+    <link rel="stylesheet" href="/css/complaints.css">
+</head>
+<body>
+    <div class="navbar">Student Dashboard</div>
+    <div class="container">
+        <h2>📋 My Complaints</h2>
+        <% if (complaints.length === 0) { %>
+            <p>You haven't raised any complaints yet.</p>
+        <% } else { %>
+            <% complaints.forEach(c => { %>
+                <div class="complaint-box">
+                    <h3><%= c.subject %></h3>
+                    <p><%= c.message %></p>
+                    <span class="date">Submitted on: <%= c.createdAt.toDateString() %></span>
+                </div>
+            <% }) %>
+        <% } %>
+        <a class="back-link" href="/student-dashboard">⬅ Back to Dashboard</a>
+    </div>
+</body>
+</html>

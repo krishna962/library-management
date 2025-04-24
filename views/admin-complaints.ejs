@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Complaints</title>
+  <link rel="stylesheet" href="/css/complaints.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f8;
+    }
+
+    .navbar {
+      background: #0777e7;
+      color: white;
+      padding: 15px 30px;
+      font-size: 20px;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links li a:hover {
+      color: #f1c40f;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .filter-section {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+
+    .filter-section select {
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .complaint-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 25px;
+      border-left: 5px solid #ccc;
+      transition: border-color 0.3s;
+    }
+
+    .complaint-box.new {
+      border-left-color: #ffc107;
+    }
+
+    .complaint-box.replied {
+      border-left-color: #28a745;
+    }
+
+    .complaint-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .profile-pic {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .complaint-info h3 {
+      margin: 0;
+      color: #2c3e50;
+    }
+
+    .complaint-info p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .date {
+      display: block;
+      margin-top: 5px;
+      font-size: 13px;
+      color: #999;
+    }
+
+    .admin-reply {
+      background: #eafaf1;
+      border-left: 5px solid #28a745;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .admin-name {
+      font-size: 13px;
+      color: #666;
+    }
+
+    form textarea {
+      width: 100%;
+      margin-top: 15px;
+      padding: 10px;
+      resize: vertical;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: inherit;
+    }
+
+    form button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #0056b3;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 12px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .badge.new {
+      background-color: #ffc107;
+      color: #212529;
+    }
+
+    .badge.replied {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .footer {
+      background: #187ee4;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      .complaint-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .profile-pic {
+        width: 50px;
+        height: 50px;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="nav-container">
+      <div class="logo">📋 Admin Dashboard - Complaints</div>
+      <ul class="nav-links">
+        <li><a href="/admin-dashboard">Dashboard</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2>Student Complaints Overview</h2>
+
+    <!-- Filter -->
+    <div class="filter-section">
+      <label for="filter">Filter:</label>
+      <select id="filter" onchange="filterComplaints()">
+        <option value="all">All Complaints</option>
+        <option value="new">New Complaints</option>
+        <option value="replied">Replied Complaints</option>
+        <option value="dateAsc">Sort by Date (Oldest First)</option>
+        <option value="dateDesc">Sort by Date (Newest First)</option>
+      </select>
+    </div>
+
+    <!-- Complaints List -->
+    <div id="complaint-list">
+      <% complaints.forEach(complaint => { %>
+        <div class="complaint-box <%= complaint.reply ? 'replied' : 'new' %>">
+          <div class="complaint-header">
+            <img src="/images/default-profile.jpg" alt="Profile Picture" class="profile-pic">
+            <div class="complaint-info">
+              <h3>
+                <%= complaint.subject %>
+                <% if (complaint.reply) { %>
+                  <span class="badge replied">Replied</span>
+                <% } else { %>
+                  <span class="badge new">New</span>
+                <% } %>
+              </h3>
+              <p><strong>By:</strong> <%= complaint.name %></p>
+              <p><%= complaint.message %></p>
+              <span class="date">Submitted on: <%= complaint.createdAt.toDateString() %></span>
+            </div>
+          </div>
+
+          <% if (complaint.reply) { %>
+            <div class="admin-reply">
+              <p><strong>Admin Reply:</strong></p>
+              <p><%= complaint.reply %></p>
+              <span class="admin-name">Answered by: <%= complaint.adminReplyBy || "Admin" %></span>
+            </div>
+          <% } %>
+
+          <% if (!complaint.reply && user.role === 'admin') { %>
+            <form action="/admin-dashboard/reply/<%= complaint._id %>" method="POST">
+              <textarea name="reply" placeholder="Write your reply..." required></textarea>
+              <button type="submit">Send Reply</button>
+            </form>
+          <% } %>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    &copy; <%= new Date().getFullYear() %> Library Management System | Admin Panel
+  </div>
+
+  <!-- Filter Logic -->
+  <script>
+    function filterComplaints() {
+      const filter = document.getElementById('filter').value;
+      const complaintBoxes = document.querySelectorAll('.complaint-box');
+      let boxesArray = Array.from(complaintBoxes);
+
+      boxesArray.forEach(box => box.style.display = 'block');
+
+      if (filter === 'new') {
+        boxesArray.forEach(box => {
+          if (!box.classList.contains('new')) box.style.display = 'none';
+        });
+      } else if (filter === 'replied') {
+        boxesArray.forEach(box => {
+          if (!box.classList.contains('replied')) box.style.display = 'none';
+        });
+      } else if (filter === 'dateAsc' || filter === 'dateDesc') {
+        const parent = document.getElementById('complaint-list');
+        boxesArray.sort((a, b) => {
+          const aDate = new Date(a.querySelector('.date').textContent.replace('Submitted on: ', ''));
+          const bDate = new Date(b.querySelector('.date').textContent.replace('Submitted on: ', ''));
+          return filter === 'dateAsc' ? aDate - bDate : bDate - aDate;
+        });
+        parent.innerHTML = '';
+        boxesArray.forEach(box => parent.appendChild(box));
+      }
+    }
+  </script>
+
+</body>
+</html>
