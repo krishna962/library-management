@@ -364,7 +364,7 @@ router.get('/admin-dashboard/tea-orders', async (req, res) => {
 // Route to approve or cancel an order
   // Approve order
   // Approve Order Route
-  app.post('/admin-dashboard/approve-order/:id', async (req, res) => {
+  router.post('/admin-dashboard/approve-order/:id', async (req, res) => {
     try {
       const order = await TeaOrder.findByIdAndUpdate(
         req.params.id,
