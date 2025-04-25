@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin - Book Requests</title>
-  <link rel="stylesheet" href="/css/admin-book-requests.css">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -43,6 +42,23 @@
       margin-top: 30px;
     }
 
+    .controls {
+      width: 90%;
+      margin: 20px auto 0;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .controls input, .controls select {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 48%;
+    }
+
     table {
       width: 90%;
       margin: 30px auto;
@@ -57,6 +73,7 @@
       padding: 16px;
       text-align: center;
       border-bottom: 1px solid #ecf0f1;
+      transition: background-color 0.3s ease;
     }
 
     th {
@@ -66,7 +83,8 @@
     }
 
     tr:hover {
-      background-color: #f2f2f2;
+      background-color: #f1f9ff;
+      transform: scale(1.01);
     }
 
     button {
@@ -76,6 +94,7 @@
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
+      transition: transform 0.2s;
     }
 
     button[type="submit"] {
@@ -85,6 +104,10 @@
 
     button[type="submit"]:last-child {
       background-color: #e74c3c;
+    }
+
+    button:hover {
+      transform: scale(1.05);
     }
 
     span {
@@ -100,6 +123,12 @@
       padding: 15px;
       margin-top: 50px;
     }
+
+    @media (max-width: 768px) {
+      .controls input, .controls select {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -109,23 +138,34 @@
     <div class="navbar-left">📚 Admin Panel - Book Requests</div>
     <div class="navbar-right">
       <a href="/admin-dashboard">🏠 Dashboard</a>
-      <a href="/admin-dashboard/books">📖 Books</a>
-      <a href="/admin-dashboard/fees">💰 Fees</a>
-      <a href="/logout">🚪 Logout</a>
     </div>
   </div>
 
   <!-- 🔎 Page Title -->
   <h2>📖 Book Issue Requests</h2>
 
+  <!-- 🔍 Search and Filter -->
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search by student or book name...">
+    <select id="statusFilter">
+      <option value="">Filter by Status</option>
+      <option value="pending">Pending</option>
+      <option value="approved">Approved</option>
+      <option value="rejected">Rejected</option>
+    </select>
+  </div>
+
   <!-- 📋 Request Table -->
-  <table>
-    <tr>
-      <th>Book</th>
-      <th>Student</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
+  <table id="requestTable">
+    <thead>
+      <tr>
+        <th>Book</th>
+        <th>Student</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
     <% requests.forEach(req => { %>
       <tr>
         <td><%= req.bookId.title %></td>
@@ -145,12 +185,39 @@
         </td>
       </tr>
     <% }) %>
+    </tbody>
   </table>
 
   <!-- ✅ Footer -->
   <footer>
     &copy; <%= new Date().getFullYear() %> Library Management System | Admin Panel
   </footer>
+
+  <!-- 🔄 Filter/Search Logic -->
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const statusFilter = document.getElementById('statusFilter');
+    const rows = document.querySelectorAll('#requestTable tbody tr');
+
+    function filterTable() {
+      const search = searchInput.value.toLowerCase();
+      const status = statusFilter.value;
+
+      rows.forEach(row => {
+        const book = row.children[0].textContent.toLowerCase();
+        const student = row.children[1].textContent.toLowerCase();
+        const rowStatus = row.children[2].textContent.toLowerCase();
+
+        const matchesSearch = book.includes(search) || student.includes(search);
+        const matchesStatus = !status || rowStatus === status;
+
+        row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+      });
+    }
+
+    searchInput.addEventListener('input', filterTable);
+    statusFilter.addEventListener('change', filterTable);
+  </script>
 
 </body>
 </html>
