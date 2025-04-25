@@ -54,6 +54,11 @@
       border-left: 5px solid #28a745;
     }
 
+    .order-card.cancelled {
+      background-color: #f8d7da;
+      border-left: 5px solid #dc3545;
+    }
+
     .order-info {
       margin-bottom: 8px;
     }
@@ -99,6 +104,7 @@
         <option value="all">All Orders</option>
         <option value="incoming">Incoming Orders</option>
         <option value="completed">Completed Orders</option>
+        <option value="cancelled">Cancelled Orders</option>
       </select>
     </div>
 
@@ -133,6 +139,23 @@
         <% }) %>
       <% } else { %>
         <div class="no-orders">No completed orders yet.</div>
+      <% } %>
+    </div>
+
+    <!-- ❌ Cancelled Orders -->
+    <div class="order-section filterable" data-type="cancelled" id="cancelledOrders">
+      <h2>❌ Cancelled Orders</h2>
+      <% if (cancelled.length > 0) { %>
+        <% cancelled.forEach(order => { %>
+          <div class="order-card cancelled">
+            <div class="order-info">🫖 <strong>Tea:</strong> <%= order.teaType %></div>
+            <div class="order-info">📦 Quantity: <%= order.quantity %></div>
+            <div class="order-info">💰 Payment: <%= order.payment %></div>
+            <div class="order-info">❌ Cancelled On: <%= new Date(order.updatedAt).toLocaleString() %></div>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div class="no-orders">No cancelled orders yet.</div>
       <% } %>
     </div>
   </div>

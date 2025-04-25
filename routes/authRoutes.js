@@ -313,31 +313,32 @@ router.get('/student-dashboard/order-tea', (req, res) => {
   
 
 // whenadmin aprrove oder then show in student my order place 
+// Student "My Orders" route
 router.get('/student-dashboard/my-orders', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'student') {
-        return res.redirect('/login');
-    }
+  if (!req.session.user || req.session.user.role !== 'student') {
+      return res.redirect('/login');
+  }
 
-    try {
-        const allOrders = await TeaOrder.find({
-            studentId: req.session.user.id,
-            approved: true // Only approved orders
-        }).sort({ createdAt: -1 });
+  try {
+      const allOrders = await TeaOrder.find({
+          studentId: req.session.user.id
+      }).sort({ createdAt: -1 });
 
-        const incoming = allOrders.filter(order => order.status === 'incoming');
-        const completed = allOrders.filter(order => order.status === 'completed');
+      const incoming = allOrders.filter(order => order.status === 'pending');
+      const completed = allOrders.filter(order => order.status === 'approved');
+      const cancelled = allOrders.filter(order => order.status === 'cancelled');
 
-        res.render('student-my-orders', {
-            user: req.session.user,
-            incoming,
-            completed
-        });
-    } catch (err) {
-        console.error("❌ Error fetching orders:", err);
-        res.status(500).send("Something went wrong.");
-    }
+      res.render('student-my-order', {
+          user: req.session.user,
+          incoming,
+          completed,
+          cancelled
+      });
+  } catch (err) {
+      console.error("❌ Error fetching orders:", err);
+      res.status(500).send("Something went wrong.");
+  }
 });
-
   
 
 
