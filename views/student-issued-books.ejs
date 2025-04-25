@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student - Issue Books</title>
+  <link rel="stylesheet" href="/css/student-issued-books.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f4f6f9;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 30px;
+      background: linear-gradient(to right, #2196F3, #1565C0);
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 28px;
+      color: #2c3e50;
+    }
+
+    .book-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .book-card {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .book-card img {
+      max-width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .book-card h3 {
+      margin: 15px 0 5px;
+      color: #34495e;
+    }
+
+    .book-card p {
+      color: #7f8c8d;
+      margin-bottom: 15px;
+    }
+
+    .book-card button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .book-card button:hover {
+      background-color: #2980b9;
+    }
+
+    .book-card button[disabled] {
+      background-color: #95a5a6;
+      cursor: not-allowed;
+    }
+
+    footer {
+        background: linear-gradient(to right, #2196F3, #1565C0);
+      color: white;
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <div class="navbar">
+    <div>📚 Student - Request Books</div>
+    <div>
+      <a href="/student-dashboard">🏠 Dashboard</a>
+    </div>
+  </div>
+
+  <!-- 📖 Main Section -->
+  <h2>📚 Browse & Request Books</h2>
+
+  <div class="book-list">
+    <% books.forEach(book => { %>
+      <div class="book-card">
+        <img src="<%= book.imageUrl %>" alt="Book Cover">
+        <h3><%= book.title %></h3>
+        <p>By <%= book.author %></p>
+
+        <% const requested = issuedBooks.find(i => i.bookId.toString() === book._id.toString()); %>
+        <% if (requested) { %>
+          <button disabled><%= requested.status.charAt(0).toUpperCase() + requested.status.slice(1) %></button>
+        <% } else { %>
+          <form method="POST" action="/student-dashboard/issued-books/request/<%= book._id %>">
+            <button type="submit">Request to Issue</button>
+          </form>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- ✅ Footer -->
+  <footer>
+    &copy; <%= new Date().getFullYear() %> Library Portal. All rights reserved.
+  </footer>
+
+</body>
+</html>

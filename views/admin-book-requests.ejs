@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Book Requests</title>
+  <link rel="stylesheet" href="/css/admin-book-requests.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f9fafb;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to right, #2196F3, #1565C0);
+      color: white;
+      padding: 15px 30px;
+      font-size: 18px;
+    }
+
+    .navbar-left {
+      font-weight: bold;
+    }
+
+    .navbar-right a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-right a:hover {
+      color: #f1c40f;
+    }
+
+    h2 {
+      text-align: center;
+      color: #34495e;
+      margin-top: 30px;
+    }
+
+    table {
+      width: 90%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: center;
+      border-bottom: 1px solid #ecf0f1;
+    }
+
+    th {
+      background-color: #2980b9;
+      color: white;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: #f2f2f2;
+    }
+
+    button {
+      padding: 8px 12px;
+      margin: 4px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button[type="submit"] {
+      background-color: #27ae60;
+      color: white;
+    }
+
+    button[type="submit"]:last-child {
+      background-color: #e74c3c;
+    }
+
+    span {
+      font-weight: bold;
+      text-transform: capitalize;
+      color: #7f8c8d;
+    }
+
+    footer {
+      background: linear-gradient(to right, #2196F3, #1565C0);
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <div class="navbar">
+    <div class="navbar-left">📚 Admin Panel - Book Requests</div>
+    <div class="navbar-right">
+      <a href="/admin-dashboard">🏠 Dashboard</a>
+      <a href="/admin-dashboard/books">📖 Books</a>
+      <a href="/admin-dashboard/fees">💰 Fees</a>
+      <a href="/logout">🚪 Logout</a>
+    </div>
+  </div>
+
+  <!-- 🔎 Page Title -->
+  <h2>📖 Book Issue Requests</h2>
+
+  <!-- 📋 Request Table -->
+  <table>
+    <tr>
+      <th>Book</th>
+      <th>Student</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    <% requests.forEach(req => { %>
+      <tr>
+        <td><%= req.bookId.title %></td>
+        <td><%= req.studentId.name %> (<%= req.studentId.class %>)</td>
+        <td><%= req.status %></td>
+        <td>
+          <% if (req.status === "pending") { %>
+            <form method="POST" action="/admin-dashboard/book-requests/<%= req._id %>/approved" style="display:inline;">
+              <button type="submit">✅ Approve</button>
+            </form>
+            <form method="POST" action="/admin-dashboard/book-requests/<%= req._id %>/rejected" style="display:inline;">
+              <button type="submit">❌ Reject</button>
+            </form>
+          <% } else { %>
+            <span><%= req.status %></span>
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+
+  <!-- ✅ Footer -->
+  <footer>
+    &copy; <%= new Date().getFullYear() %> Library Management System | Admin Panel
+  </footer>
+
+</body>
+</html>

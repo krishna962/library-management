@@ -1,28 +1,11 @@
+// models/IssuedBook.js
 const mongoose = require('mongoose');
 
 const issuedBookSchema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    bookId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Book',
-        required: true
-    },
-    issuedDate: {
-        type: Date,
-        default: Date.now
-    },
-    returnDate: {
-        type: Date
-    },
-    status: {
-        type: String,
-        enum: ['issued', 'returned'],
-        default: 'issued'
-    }
+  studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  bookId: { type: mongoose.Schema.Types.ObjectId, ref: 'Book' },
+  status: { type: String, enum: ['pending', 'approved'], default: 'pending' },
+  requestedAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('IssuedBook', issuedBookSchema);

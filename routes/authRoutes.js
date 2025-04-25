@@ -6,6 +6,8 @@ const isAuthenticated = require("../middleware/auth"); // ✅ You forgot to requ
 const Complaint = require('../models/Complaint');
 const TeaOrder = require('../models/TeaOrder');
 const FeePayment = require('../models/FeePayment');
+const Book = require("../models/book");
+const IssuedBook = require("../models/issuedBook");
 
 // ✅ Render Register Page
 router.get("/register", (req, res) => {
@@ -523,6 +525,56 @@ router.get('/admin-dashboard/view-fee-payments', async (req, res) => {
 });
 
 
+// for issue book
+
+// Show all books with issue option
+router.get('/student-dashboard/issued-books', async (req, res) => {
+  if (!req.session.user || req.session.user.role !== 'student') return res.redirect('/login');
+
+  const books = await Book.find();
+  const issuedBooks = await IssuedBook.find({ studentId: req.session.user.id });
+
+  res.render("student-issued-books", {
+    user: req.session.user,
+    books,
+    issuedBooks
+  });
+});
+
+router.post('/student-dashboard/issued-books/request/:bookId', async (req, res) => {
+  const studentId = req.session.user.id;
+  const bookId = req.params.bookId;
+
+  // Prevent duplicate requests
+  const alreadyRequested = await IssuedBook.findOne({ studentId, bookId });
+  if (alreadyRequested) {
+    return res.send("You have already requested this book.");
+  }
+
+  await IssuedBook.create({ bookId, studentId });
+  res.redirect("/student-dashboard/issued-books");
+});
+
+
+
+
+// Admin approves or rejects requests
+
+router.get('/admin-dashboard/book-requests', async (req, res) => {
+  if (!req.session.user || req.session.user.role !== 'admin') return res.redirect('/login');
+
+  const requests = await IssuedBook.find().populate("bookId").populate("studentId").sort({ requestedAt: -1 });
+  res.render("admin-book-requests", { requests });
+});
+
+
+router.post('/admin-dashboard/book-requests/:id/:action', async (req, res) => {
+  const { id, action } = req.params;
+  if (!["approved", "rejected"].includes(action)) return res.status(400).send("Invalid action");
+
+  await IssuedBook.findByIdAndUpdate(id, { status: action });
+  res.redirect("/admin-dashboard/book-requests");
+});
 
 
 // ✅ Logout
