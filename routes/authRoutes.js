@@ -5,6 +5,7 @@ const router = express.Router();
 const isAuthenticated = require("../middleware/auth"); // ✅ You forgot to require this originally
 const Complaint = require('../models/Complaint');
 const TeaOrder = require('../models/TeaOrder');
+const FeePayment = require('../models/FeePayment');
 
 // ✅ Render Register Page
 router.get("/register", (req, res) => {
@@ -455,7 +456,74 @@ router.get('/admin-dashboard/tea-orders', async (req, res) => {
   
   
   
-  
+
+  // for pay fee 
+
+
+
+  // GET fee page
+router.get('/student-dashboard/fees', async (req, res) => {
+  if (!req.session.user || req.session.user.role !== 'student') {
+    return res.redirect('/login');
+  }
+
+  const payments = await FeePayment.find({ studentId: req.session.user.id }).sort({ paidAt: -1 });
+  res.render('student-pay-fee', { payments });
+});
+
+// POST fee payment
+router.post('/student-dashboard/fees', async (req, res) => {
+  if (!req.session.user || req.session.user.role !== 'student') {
+    return res.redirect('/login');
+  }
+
+  const { month, amount } = req.body;
+
+  const alreadyPaid = await FeePayment.findOne({
+    studentId: req.session.user.id,
+    month
+  });
+
+  if (alreadyPaid) {
+    return res.send("You have already paid for this month.");
+  }
+
+  await FeePayment.create({
+    studentId: req.session.user.id,
+    month,
+    amount
+  });
+
+  res.redirect('/student-dashboard/fees');
+});
+
+
+
+// too show admin fee payment
+
+// 📄 View all fee payments - Admin Dashboard
+router.get('/admin-dashboard/view-fee-payments', async (req, res) => {
+  // 🔒 Check if user is an admin
+  if (!req.session.user || req.session.user.role !== 'admin') {
+    return res.redirect('/login');
+  }
+
+  try {
+    // 📦 Fetch all fee payments with student details, latest first
+    const payments = await FeePayment.find()
+      .populate('studentId') // To get student name/email etc.
+      .sort({ paidAt: -1 });
+
+    // 🎯 Render admin view page for all payments
+    res.render('admin-fee-payments', { payments });
+  } catch (err) {
+    console.error("❌ Error fetching fee payments:", err);
+    res.status(500).send("Something went wrong.");
+  }
+});
+
+
+
 
 // ✅ Logout
 router.get("/logout", (req, res) => {

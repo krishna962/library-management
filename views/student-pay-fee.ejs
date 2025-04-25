@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pay Fees</title>
+  <link rel="stylesheet" href="/css/student-dashboard.css">
+</head>
+<body>
+  <div class="navbar">
+    <div>💰 Fee Payment</div>
+    <div><a href="/student-dashboard">Dashboard</a></div>
+  </div>
+
+  <div class="container">
+    <h2>📅 Pay Your Monthly Fee</h2>
+    <form action="/student-dashboard/fees" method="POST">
+      <label for="month">Select Month:</label>
+      <input type="month" name="month" required>
+
+      <label for="amount">Amount:</label>
+      <input type="number" name="amount" value="500" readonly>
+
+      <button type="submit">Pay Now</button>
+    </form>
+
+    <hr>
+
+    <h3>✅ Paid Months</h3>
+    <% if (payments.length > 0) { %>
+      <ul>
+        <% payments.forEach(p => { %>
+          <li><%= p.month %> - ₹<%= p.amount %> paid on <%= new Date(p.paidAt).toLocaleDateString() %></li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>No payments made yet.</p>
+    <% } %>
+  </div>
+</body>
+</html>
