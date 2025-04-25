@@ -12,20 +12,33 @@
       margin: 0;
     }
 
-    .navbar {
-      background-color: #0066cc;
-      color: white;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    /* ✅ Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0074D9;
+  color: white;
+  padding: 15px 30px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
 
-    .navbar a {
-      color: white;
-      margin-left: 20px;
-      text-decoration: none;
-    }
+.navbar h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.navbar-right a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-right a:hover {
+  color: #FFD700;
+}
 
     .container {
       padding: 30px;
@@ -76,13 +89,18 @@
     .edit-btn { background-color: #ffc107; color: white; }
     .delete-btn { background-color: #dc3545; color: white; }
 
-    .footer {
-      background: #0066cc;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      margin-top: 40px;
-    }
+   /* ✅ Footer Styling */
+.footer {
+  background-color: #0074D9;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: 40px;
+  font-size: 14px;
+}
 
     .export-btn {
       background-color: #28a745;
@@ -103,13 +121,16 @@
 </head>
 <body>
 
-  <div class="navbar">
-    <div>📘 Admin Dashboard - Fee Payments</div>
-    <div>
-      <a href="/admin-dashboard">Dashboard</a>
-    
-    </div>
+  <!-- ✅ Admin Navbar -->
+<nav class="navbar">
+  <div class="navbar-left">
+    <h2>📊 Admin Dashboard</h2>
   </div>
+  <div class="navbar-right">
+    <a href="/admin-dashboard">🏠 Dashboard</a>
+  </div>
+</nav>
+
 
   <div class="container">
     <h2>💰 Fee Payments</h2>
@@ -129,13 +150,14 @@
           <th class="sortable">Amount</th>
           <th class="sortable">Month</th>
           <th class="sortable">Paid On</th>
+            <th>Actions</th>
         </tr>
       </thead>
       <tbody id="paymentBody">
         <% payments.forEach(payment => { %>
           <tr>
             <td><%= payment.studentId.name %></td>
-            <td><%= payment.studentId.class %></td>
+            <td><%= payment.studentId.userclass %></td>
             <td><%= payment.amount %></td>
             <td><%= payment.month %></td>
             <td><%= new Date(payment.paidAt).toLocaleDateString() %></td>
