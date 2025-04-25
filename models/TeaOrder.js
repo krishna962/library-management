@@ -5,8 +5,13 @@ const teaOrderSchema = new mongoose.Schema({
   teaType: { type: String, required: true },
   quantity: { type: Number, required: true },
   payment: { type: String, required: true },
-  approved: { type: Boolean, default: false },
-  createdAt: { type: Date, default: Date.now }
+  status: { 
+    type: String,
+    enum: ['pending', 'approved', 'cancelled'],  // Add more states if needed
+    default: 'pending' 
+  },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('TeaOrder', teaOrderSchema);

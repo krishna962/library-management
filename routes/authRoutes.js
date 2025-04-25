@@ -340,6 +340,122 @@ router.get('/student-dashboard/my-orders', async (req, res) => {
 
   
 
+
+//  tea order for admin for approve or cancel
+// admin-dashboard.js (Admin route to show orders)
+// Admin Dashboard - Tea Orders Route
+router.get('/admin-dashboard/tea-orders', async (req, res) => {
+    if (req.session.user.role !== 'admin') {
+      return res.redirect('/login');
+    }
+  
+    try {
+      // Fetch all orders for the admin dashboard
+      const orders = await TeaOrder.find().populate('studentId').sort({ createdAt: -1 });
+      res.render('admin-tea-orders', { orders });
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+      res.render('admin-tea-orders', { orders: [], error: 'Unable to fetch orders at this time.' });
+    }
+  });
+  
+
+
+// Route to approve or cancel an order
+  // Approve order
+  // Approve Order Route
+  app.post('/admin-dashboard/approve-order/:id', async (req, res) => {
+    try {
+      const order = await TeaOrder.findByIdAndUpdate(
+        req.params.id,
+        { status: 'approved' },
+        { new: true }
+      );
+      if (!order) {
+        return res.status(404).json({ success: false, message: 'Order not found' });
+      }
+      res.json({ success: true, status: 'approved' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: 'Server error' });
+    }
+  });
+  
+  
+  
+  
+  
+  // Cancel Order Route
+  router.post("/admin-dashboard/cancel-order/:orderId", async (req, res) => {
+    if (req.session.user.role !== 'admin') {
+      return res.redirect('/login');
+    }
+  
+    try {
+      const orderId = req.params.orderId;
+  
+      // Find the order and update status to 'cancelled'
+      const order = await TeaOrder.findById(orderId);
+      if (order.status === 'pending') {
+        order.status = 'cancelled';
+        order.updatedAt = Date.now();
+        await order.save();
+  
+        // Send success response
+        return res.json({ success: true, status: 'cancelled' });
+      } else {
+        return res.json({ success: false, message: "This order has already been processed." });
+      }
+    } catch (err) {
+      console.error("Error cancelling order:", err);
+      return res.json({ success: false, message: "Unable to cancel the order." });
+    }
+  });
+  
+  // Middleware for handling dynamic pagination and sorting
+  // Sorting or filtering can be applied on both the fetch query
+  router.get('/admin-dashboard/tea-orders', async (req, res) => {
+    if (req.session.user.role !== 'admin') {
+      return res.redirect('/login');
+    }
+  
+    const { status = 'all', sort = 'newest' } = req.query; // Fetch status filter and sort criteria from query parameters
+    const page = parseInt(req.query.page) || 1;
+    const limit = 10;
+    const skip = (page - 1) * limit;
+  
+    let filter = {};
+    if (status !== 'all') filter.status = status;
+  
+    let sortOrder = (sort === 'newest') ? { createdAt: -1 } : { createdAt: 1 };
+  
+    try {
+      const orders = await TeaOrder.find(filter)
+        .populate('studentId')
+        .sort(sortOrder)
+        .skip(skip)
+        .limit(limit);
+      
+      const totalOrders = await TeaOrder.countDocuments(filter);
+      const totalPages = Math.ceil(totalOrders / limit);
+  
+      res.render('admin-tea-orders', { 
+        orders, 
+        status, 
+        sort, 
+        currentPage: page, 
+        totalPages 
+      });
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+      res.render('admin-tea-orders', { orders: [], error: 'Unable to fetch orders at this time.' });
+    }
+  });
+  
+  
+  
+  
+
 // ✅ Logout
 router.get("/logout", (req, res) => {
     req.session.destroy(() => {

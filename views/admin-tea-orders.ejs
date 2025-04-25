@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - Tea Orders</title>
+  <link rel="stylesheet" href="/css/admin-dashboard.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar {
+      background-color: #157ee7;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .order-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      background: #f4f6f8;
+      transition: all 0.3s;
+    }
+    .order-card.approved {
+      background-color: #d4edda;
+      border-left: 5px solid #28a745;
+    }
+    .order-card.cancelled {
+      background-color: #f8d7da;
+      border-left: 5px solid #dc3545;
+    }
+    .order-info { margin-bottom: 8px; }
+    .action-btn {
+      padding: 8px 12px;
+      margin-right: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .approve-btn { background-color: #28a745; color: white; }
+    .cancel-btn { background-color: #dc3545; color: white; }
+    .footer {
+      background-color: #2383e2;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 40px;
+    }
+    .alert {
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      display: none;
+    }
+    .alert.success { background-color: #28a745; }
+    .alert.error { background-color: #dc3545; }
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+    .filter-bar select {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <div class="navbar">
+    <div>📋 Admin Dashboard - Tea Orders</div>
+    <div>
+      <a href="/admin-dashboard">🏠 Dashboard</a>
+      <a href="/admin-dashboard/tea-orders">🍵 Tea Orders</a>
+    </div>
+  </div>
+
+  <!-- ✅ Main Container -->
+  <div class="container">
+    <div id="notification" class="alert"></div>
+
+    <h2>Tea Orders</h2>
+
+    <!-- ✅ Filter & Sort -->
+    <div class="filter-bar">
+      <div>
+        <label for="statusFilter">Filter by Status:</label>
+        <select id="statusFilter">
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div>
+        <label for="sortBy">Sort by:</label>
+        <select id="sortBy">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+        </select>
+      </div>
+    </div>
+
+    <% if (orders.length > 0) { %>
+      <div id="ordersContainer">
+        <% orders.forEach(order => { %>
+          <div class="order-card <%= order.status %>" data-status="<%= order.status %>" data-created="<%= new Date(order.createdAt).getTime() %>">
+            <div class="order-info">🫖 <strong>Tea:</strong> <%= order.teaType %></div>
+            <div class="order-info">📦 Quantity: <%= order.quantity %></div>
+            <div class="order-info">💰 Payment: <%= order.payment %></div>
+            <div class="order-info">📚 Student: <%= order.studentId.name %></div>
+            <div class="order-info">🗓 Ordered On: <%= new Date(order.createdAt).toLocaleString() %></div>
+            <div class="order-info">Status: <span class="status-info"><%= order.status.charAt(0).toUpperCase() + order.status.slice(1) %></span></div>
+            <% if (order.status === 'pending') { %>
+              <form action="/admin-dashboard/approve-order/<%= order._id %>" method="POST" style="display:inline;">
+                <button type="submit" class="action-btn approve-btn">Approve</button>
+              </form>
+              <form action="/admin-dashboard/cancel-order/<%= order._id %>" method="POST" style="display:inline;">
+                <button type="submit" class="action-btn cancel-btn">Cancel</button>
+              </form>
+            <% } %>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p>No orders found.</p>
+    <% } %>
+  </div>
+
+  <!-- ✅ Footer -->
+  <div class="footer">
+    &copy; <%= new Date().getFullYear() %> Library Management System | Admin Panel
+  </div>
+
+  <!-- ✅ JavaScript -->
+  <script>
+   document.querySelectorAll('.approve-btn, .cancel-btn').forEach(button => {
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+    const form = button.closest('form');
+    const action = form.action;
+    const card = button.closest('.order-card');
+
+    fetch(action, {
+      method: 'POST'
+    })
+    .then(res => res.json())  // Expecting JSON response
+    .then(data => {
+      if (data.success) {
+        // Show notification based on success
+        showNotification(`Order ${data.status === 'approved' ? 'Approved' : 'Cancelled'} Successfully`, data.status === 'approved' ? 'success' : 'error');
+
+        // Update order card style and status
+        card.classList.remove('pending');
+        card.classList.add(data.status);
+
+        // Update the order status text
+        const statusText = card.querySelector('.status-info');
+        if (statusText) {
+          statusText.textContent = data.status.charAt(0).toUpperCase() + data.status.slice(1);
+        }
+
+        // Remove buttons after the action
+        const actions = card.querySelectorAll('.approve-btn, .cancel-btn');
+        actions.forEach(btn => btn.remove());
+      } else {
+        showNotification(data.message || 'Action failed. Try again.', 'error');
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      showNotification('An error occurred while processing the request.', 'error');
+    });
+  });
+});
+
+// Function to show notifications
+function showNotification(message, type) {
+  const notif = document.getElementById('notification');
+  notif.textContent = message;
+  notif.className = 'alert ' + (type === 'success' ? 'success' : 'error');
+  notif.style.display = 'block';
+
+  setTimeout(() => {
+    notif.style.display = 'none';
+  }, 3000);
+}
+
+    // ✅ Filter and Sort
+    document.getElementById('statusFilter').addEventListener('change', filterOrders);
+    document.getElementById('sortBy').addEventListener('change', sortOrders);
+
+    function filterOrders() {
+      const selectedStatus = document.getElementById('statusFilter').value;
+      document.querySelectorAll('.order-card').forEach(card => {
+        card.style.display = selectedStatus === 'all' || card.dataset.status === selectedStatus ? 'block' : 'none';
+      });
+    }
+
+    function sortOrders() {
+      const sortBy = document.getElementById('sortBy').value;
+      const container = document.getElementById('ordersContainer');
+      const cards = Array.from(container.querySelectorAll('.order-card'));
+      cards.sort((a, b) => {
+        const aTime = parseInt(a.dataset.created);
+        const bTime = parseInt(b.dataset.created);
+        return sortBy === 'newest' ? bTime - aTime : aTime - bTime;
+      });
+      cards.forEach(card => container.appendChild(card));
+    }
+  </script>
+</body>
+</html>
