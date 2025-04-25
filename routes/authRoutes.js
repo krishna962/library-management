@@ -4,6 +4,7 @@ const User = require("../models/User");
 const router = express.Router();
 const isAuthenticated = require("../middleware/auth"); // ✅ You forgot to require this originally
 const Complaint = require('../models/Complaint');
+const TeaOrder = require('../models/TeaOrder');
 
 // ✅ Render Register Page
 router.get("/register", (req, res) => {
@@ -255,6 +256,89 @@ router.post('/admin-dashboard/reply/:complaintId', async (req, res) => {
     }
 });
 
+
+
+
+// tea order details
+router.get('/student-dashboard/order-tea', (req, res) => {
+    if (!req.session.user || req.session.user.role !== 'student') {
+      return res.redirect('/login');
+    }
+    res.render('order-tea', { user: req.session.user });
+  });
+
+
+  router.post('/student-dashboard/order-tea', async (req, res) => {
+    console.log("Session user:", req.session.user); // <-- Add this
+  
+    if (!req.session.user || req.session.user.role !== 'student') {
+      return res.redirect('/login');
+    }
+  
+    try {
+      const { teaType, quantity, payment } = req.body;
+  
+      console.log("Received Order Body:", req.body);
+  
+      await TeaOrder.create({
+        studentId: req.session.user.id,
+        teaType,
+        quantity,
+        payment
+      });
+  
+      res.redirect('/student-dashboard/order-tea?success=true');
+    } catch (err) {
+      console.error("🔥 Error Placing Order:", err);
+      res.status(500).send("Error placing order.");
+    }
+  });
+  
+
+
+  // tea order for admin
+  router.get('/admin-dashboard/tea-orders', async (req, res) => {
+    if (!req.session.user || req.session.user.role !== 'admin') {
+      return res.redirect('/login');
+    }
+  
+    const orders = await TeaOrder.find().populate('studentId');
+    res.render('admin-tea-orders', { orders });
+  });
+
+  router.post('/admin-dashboard/approve-order/:id', async (req, res) => {
+    await TeaOrder.findByIdAndUpdate(req.params.id, { approved: true });
+    res.redirect('/admin-dashboard/tea-orders');
+  });
+  
+
+// whenadmin aprrove oder then show in student my order place 
+router.get('/student-dashboard/my-orders', async (req, res) => {
+    if (!req.session.user || req.session.user.role !== 'student') {
+        return res.redirect('/login');
+    }
+
+    try {
+        const allOrders = await TeaOrder.find({
+            studentId: req.session.user.id,
+            approved: true // Only approved orders
+        }).sort({ createdAt: -1 });
+
+        const incoming = allOrders.filter(order => order.status === 'incoming');
+        const completed = allOrders.filter(order => order.status === 'completed');
+
+        res.render('student-my-orders', {
+            user: req.session.user,
+            incoming,
+            completed
+        });
+    } catch (err) {
+        console.error("❌ Error fetching orders:", err);
+        res.status(500).send("Something went wrong.");
+    }
+});
+
+  
 
 // ✅ Logout
 router.get("/logout", (req, res) => {

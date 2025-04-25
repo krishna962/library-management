@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Tea</title>
+  <link rel="stylesheet" href="/css/order-tea.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+    }
+
+    .navbar {
+  background-color: #107ae4;
+  padding: 15px 30px;
+  color: white;
+  font-weight: bold;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-title {
+  font-size: 22px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: normal;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #ffc107;
+}
+
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      color: #555;
+    }
+
+    select, input[type="number"], input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #218838;
+    }
+
+    .alert.success {
+      background-color: #d4edda;
+      border-left: 5px solid #28a745;
+      padding: 15px;
+      border-radius: 5px;
+      color: #155724;
+      margin-bottom: 20px;
+      font-weight: 500;
+      display: none;
+    }
+
+    .footer {
+      background: #0f7eec;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <!-- Navigation Bar -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-title">📚 Student Dashboard</div>
+    <ul class="nav-links">
+      <li><a href="/student-dashboard">Dashboard</a></li>
+      <li><a href="/student-dashboard/my-orders">📋 My Tea Orders</a></li>
+      
+    </ul>
+  </div>
+</nav>
+
+
+  <div class="container">
+    <!-- ✅ Success Message Box -->
+    <div id="successMessage" class="alert success">
+      ✅ Your tea order has been placed successfully!
+    </div>
+
+    <h2>🫖 Order Your Tea</h2>
+
+    <form action="/student-dashboard/order-tea" method="POST">
+      <label for="teaType">Select Tea Type:</label>
+      <select name="teaType" id="teaType" required>
+        <option value="">-- Choose --</option>
+        <option value="Green Tea">Green Tea</option>
+        <option value="Black Tea">Black Tea</option>
+        <option value="Milk Tea">Milk Tea</option>
+        <option value="Masala Tea">Masala Tea</option>
+        <option value="Lemon Tea">Lemon Tea</option>
+      </select>
+    
+      <label for="quantity">Quantity:</label>
+      <input type="number" name="quantity" id="quantity" required min="1">
+    
+      <label for="payment">Payment Option:</label>
+      <select name="payment" id="payment" required>
+        <option value="cash">Cash</option>
+      </select>
+    
+      <input type="submit" value="Place Order">
+    </form>
+    
+      
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    &copy; <%= new Date().getFullYear() %> Library Management System | Student Panel
+  </div>
+
+  <!-- ✅ JavaScript to show success -->
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const successBox = document.getElementById('successMessage');
+  
+    if (urlParams.get('success') === 'true') {
+      successBox.style.display = 'block';
+  
+      // Hide the message after 5 seconds
+      setTimeout(() => {
+        successBox.style.display = 'none';
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }, 5000);
+    }
+  </script>
+  
+
+</body>
+</html>

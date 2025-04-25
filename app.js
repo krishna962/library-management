@@ -27,6 +27,8 @@ const profileRoutes = require('./routes/profileRoutes');
 
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+
 
 // ✅ Connect to MongoDB (Only Once)
 // ✅ Connect to MongoDB

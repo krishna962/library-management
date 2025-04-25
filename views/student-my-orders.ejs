@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Tea Orders</title>
+  <link rel="stylesheet" href="/css/student-dashboard.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+    }
+
+    .navbar {
+      background-color: #157ee7;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 15px;
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .order-section {
+      margin-top: 25px;
+    }
+
+    .order-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      background: #f4f6f8;
+    }
+
+    .order-card.completed {
+      background-color: #d4edda;
+      border-left: 5px solid #28a745;
+    }
+
+    .order-info {
+      margin-bottom: 8px;
+    }
+
+    .no-orders {
+      font-style: italic;
+      color: #777;
+      margin: 10px 0;
+    }
+
+    select {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .footer {
+      background-color: #2383e2;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <div class="navbar">
+    <div>📋 Student Dashboard - My Tea Orders</div>
+    <div>
+      <a href="/student-dashboard">🏠 Dashboard</a>
+      <a href="/student-dashboard/order-tea">🫖 Order Tea</a>
+    </div>
+  </div>
+
+  <!-- ✅ Main Content -->
+  <div class="container">
+    <!-- 🔍 Filter Dropdown -->
+    <div style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
+      <label for="filterSelect" style="margin-right: 10px; align-self: center;">Filter:</label>
+      <select id="filterSelect">
+        <option value="all">All Orders</option>
+        <option value="incoming">Incoming Orders</option>
+        <option value="completed">Completed Orders</option>
+      </select>
+    </div>
+
+    <!-- 🔁 Incoming Orders -->
+    <div class="order-section filterable" data-type="incoming" id="incomingOrders">
+      <h2>🕒 Incoming Orders</h2>
+      <% if (incoming.length > 0) { %>
+        <% incoming.forEach(order => { %>
+          <div class="order-card">
+            <div class="order-info">🫖 <strong>Tea:</strong> <%= order.teaType %></div>
+            <div class="order-info">📦 Quantity: <%= order.quantity %></div>
+            <div class="order-info">💰 Payment: <%= order.payment %></div>
+            <div class="order-info">🗓 Ordered On: <%= new Date(order.createdAt).toLocaleString() %></div>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div class="no-orders">No incoming orders yet.</div>
+      <% } %>
+    </div>
+
+    <!-- ✅ Completed Orders -->
+    <div class="order-section filterable" data-type="completed" id="completedOrders">
+      <h2>✅ Completed Orders</h2>
+      <% if (completed.length > 0) { %>
+        <% completed.forEach(order => { %>
+          <div class="order-card completed">
+            <div class="order-info">🫖 <strong>Tea:</strong> <%= order.teaType %></div>
+            <div class="order-info">📦 Quantity: <%= order.quantity %></div>
+            <div class="order-info">💰 Payment: <%= order.payment %></div>
+            <div class="order-info">✅ Completed On: <%= new Date(order.updatedAt).toLocaleString() %></div>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div class="no-orders">No completed orders yet.</div>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- ✅ Footer -->
+  <div class="footer">
+    &copy; <%= new Date().getFullYear() %> Library Management System | Student Panel
+  </div>
+
+  <!-- ✅ Filter Script -->
+  <script>
+    const filterSelect = document.getElementById('filterSelect');
+    const sections = document.querySelectorAll('.filterable');
+
+    filterSelect.addEventListener('change', () => {
+      const selected = filterSelect.value;
+      sections.forEach(section => {
+        const type = section.dataset.type;
+        section.style.display = (selected === 'all' || selected === type) ? 'block' : 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>
