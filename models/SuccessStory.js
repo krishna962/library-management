@@ -1,10 +1,16 @@
 const mongoose = require('mongoose');
 
 const successStorySchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    testimonial: { type: String, required: true },
-    userClass: { type: String, required: true },  // Added user class for consistency
-    photo: { type: String, default: '/images/default-user.png' },
-}, { timestamps: true });
+  name: String,
+  exam: String,
+  rank: String,
+  year: Number,
+  description: String,
+  photo: String,   // image path
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
 
 module.exports = mongoose.model('SuccessStory', successStorySchema);

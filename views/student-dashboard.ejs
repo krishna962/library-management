@@ -72,20 +72,23 @@
 
  <section class="success-stories">
   <div class="story-container">
-    <div class="story-image">
+    <div class="story-image fade" id="storyImageContainer">
       <img id="studentImage" src="/images/student1.jpg" alt="Student">
     </div>
-    <div class="story-details">
+    <div class="story-details fade" id="storyDetailsContainer">
       <h2 id="studentName">John Doe</h2>
       <p><strong>Rank:</strong> <span id="studentRank">AIR 15</span></p>
       <p><strong>Exam:</strong> <span id="studentExam">JEE Advanced</span></p>
       <p><strong>Year:</strong> <span id="studentYear">2023</span></p>
       <p id="studentDesc">Achieved top rank with consistent hard work and support from the library resources.</p>
-      <a href="/student-dashboard/add-success-story" class="btn">➕ Add Your Story</a>
+
+      <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <a href="/student-dashboard/add-success-story" class="btn green-btn">➕ Add Your Story</a>
+        <a href="/student-dashboard/all-success-stories" class="btn blue-btn">👀 View All Stories</a>
+      </div>
     </div>
   </div>
 </section>
-
  
 
    
@@ -125,55 +128,132 @@
     function toggleMenu() {
     const navLinks = document.getElementById('nav-links');
     navLinks.classList.toggle('active');
+
+    } // Closing the toggleMenu function
+
+    // for success story
+   // 10 Success Stories
+const successStories = [
+  {
+    name: "John Doe",
+    rank: "AIR 15",
+    exam: "JEE Advanced",
+    year: 2023,
+    description: "Achieved top rank with consistent hard work and support from the library resources.",
+    photo: "/images/studentb1.jpg"
+  },
+  {
+    name: "Anjali Sharma",
+    rank: "AIR 25",
+    exam: "NEET",
+    year: 2023,
+    description: "Focused preparation helped me crack NEET with excellent marks.",
+    photo: "/images/studentg1.jpg"
+  },
+  {
+    name: "Ravi Kumar",
+    rank: "Rank 1",
+    exam: "UPSC",
+    year: 2022,
+    description: "Library study environment played a huge role in my success in UPSC exams.",
+    photo: "/images/studentb2.jpg"  // Corrected photo path
+  },
+  {
+    name: "Pooja Mehta",
+    rank: "AIR 42",
+    exam: "JEE Mains",
+    year: 2023,
+    description: "Library mock tests were a game changer in my JEE preparation journey.",
+    photo: "/images/studentg2.jpg"  // Corrected photo path
+  },
+  {
+    name: "Aman Verma",
+    rank: "Top 10",
+    exam: "CAT",
+    year: 2022,
+    description: "Group study sessions in library helped me ace the CAT exam.",
+    photo: "/images/studentb3.jpg"  // Corrected photo path
+  },
+  {
+    name: "Simran Kaur",
+    rank: "AIR 5",
+    exam: "CLAT",
+    year: 2023,
+    description: "Best environment to stay consistent and crack competitive exams.",
+    photo: "/images/studentg3.jpg"  // Corrected photo path
+  },
+  {
+    name: "Mohit Singh",
+    rank: "AIR 89",
+    exam: "GATE",
+    year: 2022,
+    description: "Focused study hours in library made GATE preparation smooth.",
+    photo: "/images/studentb3.jpg"  // Corrected photo path
+  },
+  {
+    name: "Sneha Roy",
+    rank: "AIR 3",
+    exam: "CA Final",
+    year: 2023,
+    description: "Proper planning and library support helped me become a Chartered Accountant.",
+    photo: "/images/studentg4.jpg"  // Corrected photo path
+  },
+  {
+    name: "Karan Patel",
+    rank: "Top 20",
+    exam: "SSC CGL",
+    year: 2022,
+    description: "Daily practice and library access boosted my SSC preparation.",
+    photo: "/images/studentb4.jpg"  // Corrected photo path
+  },
+  {
+    name: "Megha Joshi",
+    rank: "AIR 2",
+    exam: "NIFT",
+    year: 2023,
+    description: "Creative environment of library helped me crack NIFT entrance.",
+    photo: "/images/studentg5.jpg"  // Corrected photo path
   }
+];
 
+let currentStoryIndex = 0;
 
-  // for success story
+// Show story function
+function showStory(index) {
+  const story = successStories[index];
+  document.getElementById('studentImage').src = story.photo;
+  document.getElementById('studentName').innerText = story.name;
+  document.getElementById('studentRank').innerText = story.rank;
+  document.getElementById('studentExam').innerText = story.exam;
+  document.getElementById('studentYear').innerText = story.year;
+  document.getElementById('studentDesc').innerText = story.description;
+}
 
-  const stories = [
-    {
-      image: '/images/student1.jpg',
-      name: 'Alice Johnson',
-      rank: 'AIR 10',
-      exam: 'NEET',
-      year: '2022',
-      desc: 'Completed NEET with exceptional rank using our resources.',
-    },
-    {
-      image: '/images/student2.jpg',
-      name: 'Rahul Mehta',
-      rank: 'AIR 5',
-      exam: 'JEE Main',
-      year: '2023',
-      desc: 'Library environment really helped me stay focused.',
-    },
-    {
-      image: '/images/student3.jpg',
-      name: 'Sneha Patel',
-      rank: '1st Rank',
-      exam: 'SSC Board',
-      year: '2021',
-      desc: 'Thanks to the library for all the support and peaceful environment.',
-    }
-  ];
+// First story
+showStory(currentStoryIndex);
 
-  let current = 0;
-  function showStory(index) {
-    const story = stories[index];
-    document.getElementById('studentImage').src = story.image;
-    document.getElementById('studentName').textContent = story.name;
-    document.getElementById('studentRank').textContent = story.rank;
-    document.getElementById('studentExam').textContent = story.exam;
-    document.getElementById('studentYear').textContent = story.year;
-    document.getElementById('studentDesc').textContent = story.desc;
-  }
+// Change with fade effect
+setInterval(() => {
+  const storyImageContainer = document.getElementById('storyImageContainer');
+  const storyDetailsContainer = document.getElementById('storyDetailsContainer');
 
-  setInterval(() => {
-    current = (current + 1) % stories.length;
-    showStory(current);
-  }, 7000); // Rotate every 7 seconds
+  // Fade out
+  storyImageContainer.classList.add('fade-out');
+  storyDetailsContainer.classList.add('fade-out');
 
-  showStory(current); // Initial load
+  setTimeout(() => {
+    // Change story after fade-out
+    currentStoryIndex = (currentStoryIndex + 1) % successStories.length;
+    showStory(currentStoryIndex);
+
+    // Fade in
+    storyImageContainer.classList.remove('fade-out');
+    storyDetailsContainer.classList.remove('fade-out');
+  }, 800); // Match transition timing
+}, 5000);
+    
+
+   
 </script>
   
 </body>

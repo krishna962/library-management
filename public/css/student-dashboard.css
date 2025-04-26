@@ -302,3 +302,150 @@ body {
     height: 200px;
   }
 }
+
+
+
+/* for success story*/
+
+
+.success-stories {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  background: #f4f9ff;
+  padding: 20px;
+}
+
+.story-container {
+  display: flex;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  max-width: 900px;
+  width: 100%;
+}
+
+.story-image img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.story-details {
+  padding: 20px;
+  flex: 1;
+}
+
+.story-details h2 {
+  margin-bottom: 10px;
+}
+
+.story-details p {
+  margin: 5px 0;
+}
+
+.story-details .btn {
+  display: inline-block;
+  margin-top: 15px;
+  background: #083580;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .story-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .story-image img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+/* Basic section styling */
+.success-stories {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 15px;
+  background: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Flexbox for story */
+.story-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Image styling */
+.story-image img {
+  width: 300px;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Details */
+.story-details {
+  flex: 1;
+}
+
+/* Buttons */
+.btn {
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.green-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.green-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.blue-btn {
+  background-color: #2196F3;
+  color: white;
+}
+
+.blue-btn:hover {
+  background-color: #1976D2;
+  transform: scale(1.05);
+}
+
+/* Fade animation */
+.fade {
+  opacity: 1;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .story-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .story-image img {
+    width: 100%;
+  }
+}

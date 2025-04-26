@@ -3,6 +3,9 @@ const router = express.Router();
 const User = require('../models/User'); // adjust path if needed
 const Complaint = require('../models/Complaint'); // Make sure this model exists and is imported
 const flash = require('connect-flash');
+const multer = require('multer');
+const path = require('path');
+const SuccessStory = require('../models/SuccessStory');
 
 router.get('/student-dashboard', async (req, res) => {
     if (!req.session.user || req.session.user.role !== 'student') {
@@ -19,6 +22,7 @@ router.get('/student-dashboard', async (req, res) => {
         res.redirect('/login');
     }
 });
+
 
 
 // for profile
@@ -91,6 +95,57 @@ router.post('/student-dashboard/complaint', async (req, res) => {
 });
 
 
+
+// Success Story Form
+
+// Multer setup for file upload
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'public/uploads/success-stories');
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname)); // file.png
+    }
+  });
+  const upload = multer({ storage: storage });
+
+
+// Show Success Story Form
+// GET - Add Success Story Page
+router.get('/student-dashboard/add-success-story', (req, res) => {
+    res.render('add-success-story');
+  });
+  
+  // POST - Submit Story
+
+
+  // API to handle form submit
+router.post('/student-dashboard/add-success-story', upload.single('photo'), async (req, res) => {
+  try {
+    const { name, exam, rank, year, description } = req.body;
+    const photo = req.file ? req.file.path : null;
+
+    if (!name || !exam || !rank || !year || !description || !photo) {
+      return res.status(400).send('All fields are required');
+    }
+
+    const newStory = new SuccessStory({
+      name,
+      exam,
+      rank,
+      year,
+      description,
+      photo
+    });
+
+    await newStory.save();
+
+    res.redirect('/student-dashboard');  // After adding, redirect to dashboard
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
   
 
 
