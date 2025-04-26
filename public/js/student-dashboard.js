@@ -20,3 +20,7 @@ setInterval(() => {
     current = (current + 1) % images.length;
     document.querySelector('.hero-section').style.backgroundImage = `url('${images[current]}')`;
 }, 5000);
+
+
+
+// for success story section

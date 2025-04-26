@@ -6,35 +6,86 @@
     <title>Student Dashboard</title>
     <link rel="icon" type="image/x-icon" href="/images/logo5.png">
     <link rel="icon" href="/images/favicon.ico">
+    <!-- <link rel="stylesheet" href="/css/student-dashboard.css"> -->
     <link rel="stylesheet" href="/css/student-dashboard.css">
 </head>
 <body>
 
-    <!-- 🔷 Navbar -->
-    <nav class="navbar">
-        <div class="logo">
-            <img src="https://static.vecteezy.com/system/resources/previews/020/402/234/non_2x/library-book-reading-abstract-icon-or-emblem-vector.jpg" alt="Logo">
-            <span><strong>Library Management</strong></span>
-        </div>
-        <ul>
-            <li><a href="/student-dashboard/profile">Profile</a></li>
-            <li><a href="/student-dashboard/issued-books">Issued Books</a></li>
-            <li><a href="/student-dashboard/order-tea">🍵 Order Tea</a></li>
-            <li><a href="/student-dashboard/fees">Pay Fees</a></li>
-            <li><a href="/student-dashboard/complaint">Raise Complaint</a></li>
-            <li><a href="/logout">Logout</a></li>
-        </ul>
-    </nav>
+   <!-- 🔷 Navbar -->
+<!-- 🔷 Navbar -->
+<nav class="navbar">
+  <div class="logo">
+    <img src="https://static.vecteezy.com/system/resources/previews/020/402/234/non_2x/library-book-reading-abstract-icon-or-emblem-vector.jpg" alt="Logo">
+    <span><strong>Library Management</strong></span>
+  </div>
 
-  <!-- 🌟 Hero Section -->
-<h1>Welcome, <span class="highlight-name"><%= user.name %></span> 👋</h1>
-<p>Email: <%= user.email %></p>
-<p>Phone: <%= user.phone %></p>
-<p>Class: <%= user.userClass %></p>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <ul class="nav-links" id="nav-links">
+    <!-- <li><a href="/student-dashboard/profile">Profile</a></li> -->
+    <li><a href="/student-dashboard/issued-books">Issued Books</a></li>
+    <li><a href="/student-dashboard/order-tea">🍵 Order Tea</a></li>
+    <li><a href="/student-dashboard/fees">Pay Fees</a></li>
+    <li><a href="/student-dashboard/complaint">Raise Complaint</a></li>
+    <li><a href="/logout">Logout</a></li>
+  </ul>
+</nav>
+
 
   
+  <!-- 🌟 Hero Section -->
+  <section class="hero">
+    <div class="background-image"></div>
+    <div class="hero-content">
+      <h1>Welcome, <span class="highlight-name" id="typedName"></span> 👋</h1>
+      <p class="sub-text">Glad to have you here! Here's what you can do:</p>
+  
+      <div class="work-cards">
+        <div class="card">
+          <h2>🙋‍♂️ View Profile</h2>
+          <p>View your personal information and settings.</p>
+          <a href="/student-dashboard/profile" class="btn">View Profile</a>
+        </div>
+  
+        <!-- <div class="card">
+          <h2>🎯 Raise Complaint</h2>
+          <p>Need help? Quickly submit a complaint to get support.</p>
+          <a href="/student-dashboard/complaint" class="btn">Submit</a>
+        </div>
+  
+        <div class="card">
+          <h2>🍵 Order Tea</h2>
+          <p>Take a break — order your favorite tea from the library cafe.</p>
+          <a href="/student-dashboard/order-tea" class="btn">Order Now</a>
+        </div>
+      </div> -->
+  
+    </div>
+  </section>
+  
+  
+ <!-- section for show student story success -->
 
- <!-- Dashboard Main Section -->
+ <section class="success-stories">
+  <div class="story-container">
+    <div class="story-image">
+      <img id="studentImage" src="/images/student1.jpg" alt="Student">
+    </div>
+    <div class="story-details">
+      <h2 id="studentName">John Doe</h2>
+      <p><strong>Rank:</strong> <span id="studentRank">AIR 15</span></p>
+      <p><strong>Exam:</strong> <span id="studentExam">JEE Advanced</span></p>
+      <p><strong>Year:</strong> <span id="studentYear">2023</span></p>
+      <p id="studentDesc">Achieved top rank with consistent hard work and support from the library resources.</p>
+      <a href="/student-dashboard/add-success-story" class="btn">➕ Add Your Story</a>
+    </div>
+  </div>
+</section>
+
  
 
    
@@ -43,5 +94,87 @@
         <p>&copy; <%= new Date().getFullYear() %> Library Management System. All rights reserved.</p>
     </footer>
 <script src="/js/student-dashboard.js"></script>
+
+
+<script>
+    const fullName = "<%= user.name %>";
+    const nameSpan = document.getElementById('typedName');
+    let index = 0;
+    let isDeleting = false;
+  
+    function typeEffect() {
+      const speed = isDeleting ? 100 : 150;
+      nameSpan.textContent = fullName.substring(0, index);
+  
+      if (!isDeleting && index < fullName.length) {
+        index++;
+      } else if (isDeleting && index > 0) {
+        index--;
+      } else {
+        isDeleting = !isDeleting;
+      }
+  
+      setTimeout(typeEffect, speed);
+    }
+  
+    typeEffect();
+
+
+
+    // for hamburger menu
+    function toggleMenu() {
+    const navLinks = document.getElementById('nav-links');
+    navLinks.classList.toggle('active');
+  }
+
+
+  // for success story
+
+  const stories = [
+    {
+      image: '/images/student1.jpg',
+      name: 'Alice Johnson',
+      rank: 'AIR 10',
+      exam: 'NEET',
+      year: '2022',
+      desc: 'Completed NEET with exceptional rank using our resources.',
+    },
+    {
+      image: '/images/student2.jpg',
+      name: 'Rahul Mehta',
+      rank: 'AIR 5',
+      exam: 'JEE Main',
+      year: '2023',
+      desc: 'Library environment really helped me stay focused.',
+    },
+    {
+      image: '/images/student3.jpg',
+      name: 'Sneha Patel',
+      rank: '1st Rank',
+      exam: 'SSC Board',
+      year: '2021',
+      desc: 'Thanks to the library for all the support and peaceful environment.',
+    }
+  ];
+
+  let current = 0;
+  function showStory(index) {
+    const story = stories[index];
+    document.getElementById('studentImage').src = story.image;
+    document.getElementById('studentName').textContent = story.name;
+    document.getElementById('studentRank').textContent = story.rank;
+    document.getElementById('studentExam').textContent = story.exam;
+    document.getElementById('studentYear').textContent = story.year;
+    document.getElementById('studentDesc').textContent = story.desc;
+  }
+
+  setInterval(() => {
+    current = (current + 1) % stories.length;
+    showStory(current);
+  }, 7000); // Rotate every 7 seconds
+
+  showStory(current); // Initial load
+</script>
+  
 </body>
 </html>
