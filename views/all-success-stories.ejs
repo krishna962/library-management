@@ -34,26 +34,36 @@
 <div class="container">
   <% stories.forEach(function(story, index) { 
     let isReverse = (index % 2 !== 0);
-    let photoUrl = story.photo ? story.photo : '/images/studentb1.jpg';
-%>
- <div class="story-card <%= isReverse ? 'reverse' : '' %>">
-   
-   <div class="story-image" style="background-image: url('<%= photoUrl %>');">
-   </div>
-
-   <div class="story-content">
-     <h2><%= story.name %></h2>
-     <div class="info"><strong>Rank:</strong> <%= story.rank %></div>
-     <div class="info"><strong>Exam:</strong> <%= story.exam %></div>
-     <div class="info"><strong>Year:</strong> <%= story.year %></div>
-     <p><%= story.description %></p>
-   </div>
-
- </div>
-<% }) %>
-
-
+    let photoUrl = story.photo 
+      ? story.photo.replace(/\\/g, '/') 
+      : '/images/studentb1.jpg'; 
+    // 👆 Backslash ko Forward slash me replace kiya
+  %>
+  <div class="story-card <%= isReverse ? 'reverse' : '' %>">
+    
+    <div class="story-image" style="background-image: url('<%= photoUrl %>');">
+  <img 
+    src="<%= photoUrl %>" 
+    alt="Success Story Image" 
+    onerror="this.onerror=null; this.src='/images/studentb1.jpg'; this.parentNode.style.backgroundImage='url(/images/default.png)';" 
+    style="display: none;"
+  />
 </div>
+
+
+    <div class="story-content">
+      <h2><%= story.name %></h2>
+      <div class="info"><strong>Rank:</strong> <%= story.rank %></div>
+      <div class="info"><strong>Exam:</strong> <%= story.exam %></div>
+      <div class="info"><strong>Year:</strong> <%= story.year %></div>
+      <p><%= story.description %></p>
+    </div>
+
+  </div>
+  <% }) %>
+</div>
+
+
 
 <footer>
   &copy; 2025 Student Portal. All rights reserved.
