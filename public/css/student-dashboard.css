@@ -448,4 +448,74 @@ body {
   .story-image img {
     width: 100%;
   }
+
+
+  /* --- RESPONSIVE --- */
+
+/* For Tablets */
+@media (max-width: 768px) {
+  .button-container {
+    justify-content: center;
+  }
+
+  .button-container .btn {
+    font-size: 16px;
+    padding: 10px 16px;
+  }
+}
+
+/* For Mobile Phones */
+@media (max-width: 480px) {
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-container .btn {
+    width: 100%;
+    max-width: 300px;
+    font-size: 15px;
+    padding: 10px 14px;
+  }
+}
+}
+
+/* Button Container */
+.button-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+/* Button Common Style */
+.button-container .btn {
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  transition: 0.3s;
+}
+
+/* Green Button */
+.green-btn {
+  background-color: #28a745;
+  color: #fff;
+}
+
+/* Blue Button */
+.blue-btn {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Hover Effects */
+.green-btn:hover {
+  background-color: #218838;
+}
+
+.blue-btn:hover {
+  background-color: #0069d9;
 }

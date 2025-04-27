@@ -8,7 +8,7 @@ body {
 
 /* 🔹 Navbar */
 nav {
-  background-color: #1a237e;
+  background-color:  #063d9e;
   color: white;
   padding: 15px 25px;
   display: flex;
@@ -113,7 +113,7 @@ p {
 
 /* 🔹 Footer */
 footer {
-  background-color: #1a237e;
+  background-color:  #063d9e;
   color: white;
   text-align: center;
   padding: 15px;
