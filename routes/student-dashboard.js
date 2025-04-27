@@ -148,5 +148,19 @@ router.post('/student-dashboard/add-success-story', upload.single('photo'), asyn
 });
   
 
+// Show Success Stories
+
+// Route to show all success stories
+router.get('/student-dashboard/all-success-stories', async (req, res) => {
+  try {
+    const allStories = await SuccessStory.find().sort({ createdAt: -1 }); // latest first
+    res.render('all-success-stories', { stories: allStories }); // stories bhej rahe hain EJS me
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+
 
 module.exports = router;

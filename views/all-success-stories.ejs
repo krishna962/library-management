@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Success Stories</title>
+  <link rel="icon" type="image/x-icon" href="/images/logo5.png">
+  <link rel="stylesheet" href="/css/all-success-stories.css">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">Student Portal</div>
+    <div class="menu-toggle" id="menu-toggle">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div class="nav-links" id="nav-links">
+      <a href="/student-dashboard">Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<div class="heading">
+  <h1>Our Students' Success Stories</h1>
+</div>
+
+<!-- /* for cards  */ -->
+<div class="container">
+  <% stories.forEach(function(story, index) { 
+    let isReverse = (index % 2 !== 0);
+    let photoUrl = story.photo ? story.photo : '/images/studentb1.jpg';
+%>
+ <div class="story-card <%= isReverse ? 'reverse' : '' %>">
+   
+   <div class="story-image" style="background-image: url('<%= photoUrl %>');">
+   </div>
+
+   <div class="story-content">
+     <h2><%= story.name %></h2>
+     <div class="info"><strong>Rank:</strong> <%= story.rank %></div>
+     <div class="info"><strong>Exam:</strong> <%= story.exam %></div>
+     <div class="info"><strong>Year:</strong> <%= story.year %></div>
+     <p><%= story.description %></p>
+   </div>
+
+ </div>
+<% }) %>
+
+
+</div>
+
+<footer>
+  &copy; 2025 Student Portal. All rights reserved.
+</footer>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.story-card');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, {
+      threshold: 0.3
+    });
+
+    cards.forEach(card => {
+      observer.observe(card);
+    });
+  });
+
+
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+  window.addEventListener('scroll', function() {
+    const cards = document.querySelectorAll('.story-card');
+    const triggerBottom = window.innerHeight * 0.9;
+
+    cards.forEach(card => {
+      const cardTop = card.getBoundingClientRect().top;
+      if (cardTop < triggerBottom) {
+        card.classList.add('show');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

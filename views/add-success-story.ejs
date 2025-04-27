@@ -4,18 +4,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Add Success Story</title>
+  <link rel="icon" type="image/x-icon" href="/images/logo5.png">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f8ff;
+    /* --- Reset --- */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f8ff;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
       min-height: 100vh;
     }
 
+    /* --- Navbar --- */
+    nav {
+      background: #063d9e;
+      padding: 10px 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #f1c40f;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle div {
+      width: 25px;
+      height: 3px;
+      background: white;
+      margin: 4px 0;
+    }
+
+    /* --- Form --- */
     .form-container {
       background: white;
       padding: 30px;
@@ -23,6 +76,8 @@
       box-shadow: 0 5px 20px rgba(0,0,0,0.2);
       max-width: 500px;
       width: 90%;
+      margin: 50px auto;
+      flex-grow: 1;
     }
 
     .form-container h2 {
@@ -48,7 +103,11 @@
       width: 100%;
     }
 
-    .btn-submit {
+    input[type="file"] {
+      padding: 5px;
+    }
+
+    button[type="submit"] {
       background: #063d9e;
       color: white;
       border: none;
@@ -56,42 +115,105 @@
       border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
+      transition: background 0.3s, color 0.3s;
     }
 
-    .btn-submit:hover {
+    button[type="submit"]:hover {
       background: #f1c40f;
       color: black;
     }
 
     .back-link {
       display: block;
-      margin-top: 10px;
+      margin-top: 15px;
       text-align: center;
       color: #063d9e;
       text-decoration: none;
+      font-weight: 500;
     }
 
     .back-link:hover {
       text-decoration: underline;
     }
+
+    /* --- Footer --- */
+    footer {
+      background: #063d9e;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      margin-top: auto;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #063d9e;
+        position: absolute;
+        top: 60px;
+        left: 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
   </style>
 </head>
+
 <body>
 
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-logo">Student Portal</div>
+    <div class="menu-toggle" id="menu-toggle">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="nav-links" id="nav-links">
+      <a href="/student-dashboard">Dashboard</a>
+      <a href="/student-dashboard/all-success-stories" class="btn blue-btn">View All Stories</a>
+
+    </div>
+  </nav>
+
+  <!-- Form Section -->
   <div class="form-container">
     <h2>Add Your Success Story</h2>
     <form action="/student-dashboard/add-success-story" method="POST" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="Your Name" required><br>
-        <input type="text" name="exam" placeholder="Exam Name" required><br>
-        <input type="text" name="rank" placeholder="Your Rank" required><br>
-        <input type="number" name="year" placeholder="Year" required><br>
-        <textarea name="description" placeholder="Tell us your journey" required></textarea><br>
-        <input type="file" name="photo" accept="image/*" required><br>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="text" name="exam" placeholder="Exam Name" required>
+        <input type="text" name="rank" placeholder="Your Rank" required>
+        <input type="number" name="year" placeholder="Year" required>
+        <textarea name="description" placeholder="Tell us your journey..." required></textarea>
+        <input type="file" name="photo" accept="image/*" required>
         <button type="submit">Submit Story</button>
-      </form>
-
-    <a class="back-link" href="/student-dashboard">← Back to Dashboard</a>
+    </form>
   </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Student Portal. All rights reserved.
+  </footer>
+
+  <!-- JS for Hamburger Menu -->
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
 
 </body>
 </html>
