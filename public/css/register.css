@@ -1,323 +1,373 @@
-/* Enhanced CSS with better transitions and responsiveness */
-body { 
-    font-family: Arial, sans-serif;
-    background: url('https://static1.anpoimages.com/wordpress/wp-content/uploads/2023/10/calibre-hero-1.jpg?q=50&fit=crop&w=1140&h=&dpr=1.5') no-repeat center center/cover;
-  
-   /* background-color:rgb(11, 218, 245); */
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/* register.css */
+
+/* Body with dark-light gradient */
+body {
     margin: 0;
-    position: relative;
-    /* color: black; */
-}
-.register-container {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e0eafc, #cfdef3);/* Dark blue gradient */
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 100%;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
     position: relative;
-    /* background-color: rgb(219, 175, 175); */
-    display: flex;
-    
 }
-.book-images {
-    position: absolute;
-    top: 10%;
-    left: 5%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+
+/* Make sure register-container centers itself */
+/* Registration container */
+.register-container {
+    width: 100%;
+    max-width: 450px;
+    margin-top: 100px; /* because of navbar */
 }
-.book-images img {
-    width: 130px;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-.book-images img:hover {
-    transform: scale(1.15);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-}
+
 .card {
-    background: rgba(255, 255, 255, 0.25);
-    padding: 40px;
-    border-radius: 25px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+    background: linear-gradient(135deg, #ffffff, #dfe9f3); /* Light greyish gradient */
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     text-align: center;
-    width: 450px;
-    backdrop-filter: blur(15px);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+/* Card hover effect */
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.35);
 }
-.card h2 {
-    margin-bottom: 20px;
-    color: #fff;
+
+h2 {
+    color: #0077b6;
+    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
+
+/* Input group */
 .input-group {
     position: relative;
-    margin: 15px 0;
+    margin-bottom: 20px;
+    text-align: left;
 }
-.input-group input, .input-group select {
+/* Inputs and selects */
+.input-group input,
+.input-group select {
     width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    background: rgba(255, 255, 255, 0.25);
-    color: #fff;
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
     outline: none;
-    transition: background 0.3s, box-shadow 0.3s;
+    font-size: 16px;
+    background: #f9f9f9;
+    transition: border 0.3s ease;
 }
-.input-group input:focus, .input-group select:focus {
-    background: rgba(255, 255, 255, 0.35);
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+/* Input focus effect */
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #0077b6;
 }
+
+/* Label */
 .input-group label {
     position: absolute;
-    top: 50%;
-    left: 15px;
-    transform: translateY(-50%);
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
-    pointer-events: none;
+    top: -10px;
+    left: 20px;
+    background: #fff;
+    padding: 0 5px;
+    font-size: 14px;
+    color: #555;
+    
 }
-.input-group input:focus ~ label, 
-.input-group input:valid ~ label, 
-.input-group select:focus ~ label, 
-.input-group select:valid ~ label {
-    top: 5px;
-    left: 10px;
-    font-size: 12px;
-    color: #ffcc00;
+/* Submit Button */
+button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
 }
+
+button[type="submit"]:hover {
+    background: #023e8a;
+    transform: translateY(-2px);
+}
+
+.success-message, .alert-box {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.alert-box.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.success-message button,
+.alert-box button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.success-message button:hover,
+.alert-box button:hover {
+    background: #023e8a;
+}
+
+.phone-input {
+    display: flex;
+    align-items: center;
+}
+
+.country-code {
+    padding: 12px 15px;
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 10px 0 0 10px;
+}
+.phone-input input {
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    flex: 1;
+}
+
+.password-instructions {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.password-instructions ul {
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+.password-instructions li.invalid {
+    color: red;
+}
+
+.password-instructions li.valid {
+    color: green;
+}
+
+.validation-message {
+    color: red;
+    font-size: 13px;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
 .toggle-password {
     position: absolute;
     right: 15px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #ffcc00;
-}
-
-#dropdown{
-    /* background-color: hotpink; */
-    color: black;
-}
-.card button {
-    background: linear-gradient(135deg, #ffcc00, #ff9900);
-    color: #333;
-    border: none;
-    cursor: pointer;
     font-size: 18px;
-    padding: 12px;
-    border-radius: 12px;
-    transition: background 0.3s, transform 0.3s;
+    color: #999;
 }
-.card button:hover {
-    background: linear-gradient(135deg, #e6b800, #ff7700);
-    transform: scale(1.07);
-}
-.card p {
-    margin-top: 15px;
-    color: #fff;
-}
-.card a {
-    color: #ffcc00;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-.card a:hover {
-    color: #e6b800;
-    text-decoration: underline;
-}
-@media (max-width: 768px) {
+
+/* Responsive */
+@media screen and (max-width: 600px) {
     .card {
-        width: 90%;
-        padding: 30px;
+        padding: 20px;
     }
-    .book-images {
-        display: none;
+
+    .input-group input, .input-group select {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    button[type="submit"] {
+        font-size: 16px;
     }
 }
 
-.password-instructions {
-    font-size: 12px;
-    color: red;
-    margin-top: 5px;
-    display: none; /* Initially hidden */
-    font-weight: bolder;
-}
 
-.password-instructions ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.password-instructions li {
-    font-size: 12px;
-    color: black;
-    font-weight: bolder;
-}
-
-#password-match-message {
-    font-size: 12px;
-    color: red;
-}
-
-.hidden {
-    display: none;
-}
-
-.phone-input {
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.25);
-    padding: 8px;
-    border-radius: 12px;
-    width: 100%;
-}
-
-.country-code {
-    font-size: 16px;
+.alert-box {
+    background-color: #ffe6e6;
+    color: #cc0000;
+    padding: 15px;
+    margin: 10px auto;
+    border-radius: 10px;
+    text-align: center;
     font-weight: bold;
-    color: #fff;
-    margin-right: 8px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: relative;
+    top: -30px; /* move it closer to the card */
 }
-
-.phone-input input {
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: 16px;
-    color: #fff;
-    width: 100%;
-}
-
-.validation-message {
-    font-size: 12px;
-    margin-top: 5px;
-    display: block;
-}
-
-.valid {
-    color: limegreen;
-}
-
-.invalid {
-    color: red;
-}
-
-#role{
-    color: black;
-}
-.valid::before {
-    content: "✅ ";
-    color: limegreen;
-}
-
-.invalid::before {
-    content: "❌ ";
-    color: red;
-}
-
-/* Close Button Styling */
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 25px;
+.alert-box button {
+    margin-top: 10px;
+    padding: 8px 20px;
+    background: #0077b6;
     color: white;
-    /* background-color: rgba(255, 0, 0, 0.7);  */
     border: none;
-    padding: 5px 10px;
-    border-radius: 50%;
+    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 1000;
+    font-size: 14px;
+}
+.alert-box button:hover {
+    background: #023e8a;
 }
 
-/* Hover effect */
-.close-button:hover {
-    /* background-color: red; */
-    transform: scale(1.1);
-    font-size: 35px;
-}
-
-
-/* registration msg  */
-
-.success-message {
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #28a745;
-    color: white;
+.success-message, .alert-box.error {
+    margin: 20px auto;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.success-message button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border: none;
-    background: white;
-    color: #28a745;
     font-weight: bold;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.success-message {
+    background-color: #e6ffe6;
+    color: #006600;
+}
+
+.alert-box.error {
+    background-color: #ffe6e6;
+    color: #cc0000;
+}
+
+.success-message button, .alert-box.error button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #0077b6;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    border-radius: 5px;
 }
 
-.success-message button:hover {
-    background: #218838;
-    color: white;
-}
-
-
-
-/* Alert Box Styling */
-
-.alert-box {
-    display: none;
+/* Navbar Styling */
+.navbar {
+    width: 100%;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 84, 210, 0.8));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 10px 20px;
     position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .nav-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 24px;
     font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .nav-links a {
+    margin-left: 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .nav-links a:hover {
+    color: #ffcc00;
+  }
+  
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .navbar-container {
+        flex-direction: column;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .nav-links a {
+        margin: 8px 0;
+    }
 }
 
-.success {
-    background-color: #28a745;
-    color: white;
+
+/* Footer */
+/* Footer properly at bottom */
+.footer {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 84, 210, 0.8));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-align: center;
+  padding: 15px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  color: #fff;
+  font-size: 14px;
 }
 
-.error {
-    background-color: #dc3545;
-    color: white;
+
+
+.footer-content p {
+    margin: 0;
 }
 
-.alert-box button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border: none;
-    background: white;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
+/* Adjust registration container to come down due to navbar */
+.register-container {
+    margin-top: 80px;
 }
 
-.alert-box button:hover {
-    background: rgba(255, 255, 255, 0.8);
+/* Responsive Nav/Footer */
+@media screen and (max-width: 600px) {
+    .navbar-container {
+        flex-direction: column;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+    }
+}
+
+
+.hidden {
+    display: none;
 }

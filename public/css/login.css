@@ -223,9 +223,9 @@
 /* Navbar Styling */
 .navbar {
   width: 100%;
-  background: linear-gradient(to right, #2196F3, #1565C0);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 84, 210, 0.8));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 10px 20px;
   position: fixed;
   top: 0;
@@ -265,9 +265,9 @@
 /* Footer Styling */
 .footer {
   width: 100%;
-  background: linear-gradient(to right, #2196F3, #1565C0);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 84, 210, 0.8));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   text-align: center;
   padding: 15px 0;
   position: fixed;
