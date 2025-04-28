@@ -8,6 +8,8 @@ const TeaOrder = require('../models/TeaOrder');
 const FeePayment = require('../models/FeePayment');
 const Book = require("../models/book");
 const IssuedBook = require("../models/issuedBook");
+const multer = require('multer'); // 🧠 Image upload ke liye
+const path = require('path');
 
 // ✅ Render Register Page
 router.get("/register", (req, res) => {
@@ -575,6 +577,71 @@ router.post('/admin-dashboard/book-requests/:id/:action', async (req, res) => {
   await IssuedBook.findByIdAndUpdate(id, { status: action });
   res.redirect("/admin-dashboard/book-requests");
 });
+
+
+
+
+
+// update profile --
+
+
+
+// 🔵 Multer setup for file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/'); // yahan image save hoga
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname); // unique name
+  }
+});
+
+const upload = multer({ storage: storage });
+
+router.post('/update-profile', upload.single('profilePic'), async (req, res) => {
+  try {
+    console.log('🚀 POST /update-profile called');
+    console.log('Session userId:', req.session.userId);
+
+    if (!req.session.userId) {
+      console.log('❌ No userId found in session');
+      return res.redirect('/student-dashboard/profile?error=true');
+    }
+
+    console.log('✅ UserId Found:', req.session.userId);
+    console.log('Form Data:', req.body);
+
+    const { name, phone, address, userClass } = req.body;
+
+    const updateData = {
+      name,
+      phone,
+      address,
+      userClass
+    };
+
+    if (req.file) {
+      console.log('✅ File Uploaded:', req.file.filename);
+      updateData.profilePic = '/uploads/' + req.file.filename;
+    }
+
+    const updatedUser = await StudentModel.findByIdAndUpdate(req.session.userId, updateData, { new: true });
+    console.log('Updated User:', updatedUser);
+
+    if (!updatedUser) {
+      console.log('❌ No user found to update');
+      return res.redirect('/student-dashboard/profile?error=true');
+    }
+
+    console.log('✅ Profile updated successfully');
+    res.redirect('/student-dashboard/profile?success=true');
+
+  } catch (error) {
+    console.error('❌ Error in /update-profile:', error);
+    res.redirect('/student-dashboard/profile?error=true');
+  }
+});
+
 
 
 

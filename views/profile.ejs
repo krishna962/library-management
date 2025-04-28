@@ -6,9 +6,24 @@
   <title>Student Profile</title>
   <link rel="stylesheet" href="/css/profile.css" />
   <link rel="icon" type="image/x-icon" href="/images/logo5.png" />
-  <style>
-   
-  </style>
+  <script>
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      if (urlParams.has('success')) {
+        alert('🎉 Profile updated successfully!');
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+  
+      if (urlParams.has('error')) {
+        alert('⚠️ Something went wrong while updating profile.');
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+  </script>
+  
 </head>
 <body>
 
