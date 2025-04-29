@@ -25,7 +25,7 @@
 
   <!-- ✅ Navbar -->
  <!-- ✅ Navbar -->
-<div class="navbar">
+ <div class="navbar">
   <div class="left-section">
     📚 Student - Request Books
   </div>
@@ -38,6 +38,7 @@
     </div>
   </div>
 </div>
+
 
 
 
@@ -73,11 +74,13 @@
     &copy; <%= new Date().getFullYear() %> Library Portal. All rights reserved.
   </footer>
   <script>
-    function toggleMenu() {
-      const navLinks = document.getElementById('navLinks');
-      navLinks.classList.toggle('show');
-    }
-    </script>
+
+  function toggleMenu() {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.classList.toggle('active');
+  }
+</script>
+
     
 </body>
 </html>

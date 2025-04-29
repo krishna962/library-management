@@ -4,135 +4,25 @@
   <meta charset="UTF-8">
   <title>Pay Fees</title>
   <link rel="icon" type="image/x-icon" href="/images/logo5.png">
-  <link rel="stylesheet" href="/css/student-dashboard.css">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f6f8;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Navbar */
-    /* Navbar Styles */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to right, #4CAF50, #2E7D32);
-  color: white;
-  padding: 15px 30px;
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.navbar .navbar-title {
-  font-size: 1.5em;
-  font-weight: 600;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  margin-left: 20px;
-  font-size: 1em;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.navbar a:hover {
-  color: #FFD700;
-}
-
-    /* Container */
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-    }
-
-    h2, h3 {
-      text-align: center;
-      color: #333;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    label {
-      font-weight: 600;
-      color: #444;
-    }
-
-    input, select {
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      padding: 12px;
-      border: none;
-      background-color: #28a745;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #218838;
-    }
-
-    hr {
-      margin: 30px 0;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    ul li {
-      background-color: #e9f7ef;
-      margin: 8px 0;
-      padding: 12px;
-      border-left: 5px solid #28a745;
-      border-radius: 6px;
-    }
-
-    .footer {
-      background: linear-gradient(to right, #4CAF50, #2E7D32);
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/student-pay-fee.css">
 </head>
 <body>
 
   <!-- ✅ Navbar -->
-  <!-- ✅ Stylish Navbar -->
-<nav class="navbar">
-  <div class="navbar-left">
-    <span class="navbar-title">💰 Student - Fee Payment</span>
-  </div>
-  <div class="navbar-right">
-    <a href="/student-dashboard">🏠 Dashboard</a>
-  </div>
-</nav>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <span class="navbar-title">💰 Student - Fee Payment</span>
+    </div>
+  
+    <div class="navbar-right">
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+      <div class="nav-links" id="navbarMenu">
+        <a href="/student-dashboard">🏠 Dashboard</a>
+      </div>
+    </div>
+  </nav>
+  
+  
 
 
   <!-- ✅ Main Form Section -->
@@ -147,7 +37,7 @@
 
       <button type="submit">💳 Pay Now</button>
     </form>
-
+<br><br>
     <hr>
 
     <h3>✅ Paid Months</h3>
@@ -166,6 +56,12 @@
   <div class="footer">
     &copy; <%= new Date().getFullYear() %> Library Management System | Student Panel
   </div>
-
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('navbarMenu');
+      menu.classList.toggle('show');
+    }
+  </script>
+  
 </body>
 </html>

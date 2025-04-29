@@ -3,97 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>My Tea Orders</title>
-  <link rel="stylesheet" href="/css/student-dashboard.css">
+  <link rel="stylesheet" href="/css/my-tea-order.css">
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f8f9fa;
-    }
-
-    .navbar {
-      background-color: #157ee7;
-      color: white;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .navbar a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 15px;
-      font-weight: 500;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 30px auto;
-      background: white;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .order-section {
-      margin-top: 25px;
-    }
-
-    .order-card {
-      border: 1px solid #ccc;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 8px;
-      background: #f4f6f8;
-    }
-
-    .order-card.completed {
-      background-color: #d4edda;
-      border-left: 5px solid #28a745;
-    }
-
-    .order-card.cancelled {
-      background-color: #f8d7da;
-      border-left: 5px solid #dc3545;
-    }
-
-    .order-info {
-      margin-bottom: 8px;
-    }
-
-    .no-orders {
-      font-style: italic;
-      color: #777;
-      margin: 10px 0;
-    }
-
-    select {
-      padding: 8px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    .footer {
-      background-color: #2383e2;
-      color: white;
-      text-align: center;
-      padding: 15px 0;
-      margin-top: 40px;
-    }
+    
   </style>
 </head>
 <body>
 
   <!-- ✅ Navbar -->
-  <div class="navbar">
-    <div>📋 Student Dashboard - My Tea Orders</div>
-    <div>
+<!-- ✅ Navbar with Hamburger Right -->
+<nav class="navbar">
+  <div class="nav-title">📋 Student-Tea Orders</div>
+  
+  <div class="nav-right">
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="nav-links" id="navLinks">
       <a href="/student-dashboard">🏠 Dashboard</a>
       <a href="/student-dashboard/order-tea">🫖 Order Tea</a>
     </div>
   </div>
+</nav>
+
+
 
   <!-- ✅ Main Content -->
   <div class="container">
@@ -178,6 +109,13 @@
       });
     });
   </script>
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('active');
+    }
+  </script>
+  
 
 </body>
 </html>
