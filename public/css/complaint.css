@@ -1,18 +1,16 @@
-/* ======= Base Styles ======= */
+/* complaint.css */
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
     margin: 0;
-    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
 }
 
-/* ======= Navbar ======= */
-/* Navbar Styling */
 .navbar {
-    background: linear-gradient(90deg, #0077b6, #00b4d8);
-    color: #fff;
-    padding: 12px 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    background-color: #117fec;
+    color: white;
+    padding: 15px 30px;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -22,14 +20,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1000px;
-    margin: auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 .logo {
-    font-size: 1.4rem;
+    font-size: 22px;
     font-weight: bold;
-    color: #fff;
+    color: white;
+    text-decoration: none;
 }
 
 .nav-links {
@@ -38,321 +38,306 @@ body {
     gap: 20px;
 }
 
-.nav-links li {
-    display: inline;
-}
-
 .nav-links a {
-    color: #fff;
+    color: white;
     text-decoration: none;
     font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 4px;
+    padding: 8px 12px;
     transition: background 0.3s;
 }
 
 .nav-links a:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
 }
 
-/* ======= Main Container ======= */
+/* Hamburger */
+.hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+}
+
+.hamburger div {
+    height: 3px;
+    background: white;
+    margin: 4px 0;
+    width: 25px;
+}
+
+.nav-active {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+}
+
 .container {
-    max-width: 600px;
-    margin: 60px auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* ======= Headings ======= */
 h1 {
+    font-size: 26px;
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+p {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 16px;
 }
 
-/* ======= Form Styles ======= */
-form {
-    margin-top: 20px;
-}
-
-input[type="text"],
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    resize: vertical;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-/* ======= Alert Messages ======= */
 .alert {
     padding: 15px;
-    margin-bottom: 20px;
     border-radius: 5px;
-    font-weight: bold;
+    margin: 15px 0;
+    font-size: 14px;
     text-align: center;
 }
 
-.alert.success {
+.success {
     background-color: #d4edda;
     color: #155724;
 }
 
-.alert.error {
+.error {
     background-color: #f8d7da;
     color: #721c24;
 }
 
-/* ======= Back Link ======= */
-.back-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    color: #007bff;
-    text-decoration: none;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-
-/* ======= Footer ======= */
-.footer {
-    text-align: center;
-    padding: 15px 0;
-    background: #f1f1f1;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    font-size: 0.9rem;
-    color: #555;
-}
-
-
-/* for view complaint */
-
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f5f7fa;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar {
-    background-color: #007bff;
-    color: #fff;
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.navbar.admin {
-    background-color: #343a40;
-}
-
-.container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    text-align: center;
-    color: #333;
-}
-
-.complaint-box {
-    border-left: 5px solid #007bff;
-    background-color: #f1f9ff;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-}
-
-.complaint-box h3 {
-    margin: 0 0 10px;
-    color: #0056b3;
-}
-
-.complaint-box .date {
-    font-size: 12px;
-    color: #777;
-}
-
-.back-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    color: #007bff;
-    text-decoration: none;
-}
-@media (max-width: 600px) {
-    .container {
-        width: 90%;
-        padding: 15px;
-    }
-
-    .complaint-box {
-        font-size: 14px;
-    }
-
-    .navbar {
-        font-size: 16px;
-        padding: 10px;
-    }
-}
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f5f7fa;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar {
-    background-color: #007bff;
-    color: #fff;
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.navbar.admin {
-    background-color: #343a40;
-}
-
-.container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    text-align: center;
-    color: #333;
-}
-
-.complaint-box {
-    border-left: 5px solid #007bff;
-    background-color: #f1f9ff;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-}
-
-.complaint-header {
+form {
     display: flex;
+    flex-direction: column;
     gap: 15px;
 }
 
-.profile-pic {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #ccc;
-    object-fit: cover;
-}
-
-.complaint-info {
-    flex: 1;
-}
-
-.complaint-box h3 {
-    margin: 0 0 10px;
-    color: #0056b3;
-}
-
-.complaint-box .date {
-    font-size: 12px;
-    color: #777;
-}
-
-.admin-reply {
-    margin-top: 20px;
-    background-color: #d4edda;
-    padding: 15px;
-    border-radius: 5px;
-}
-
-.admin-reply p {
-    font-weight: bold;
-}
-
-.admin-reply .admin-name {
-    font-style: italic;
-    color: #333;
-}
-
-form {
-    margin-top: 15px;
-}
-
-textarea {
+form input[type="text"],
+form textarea {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+    padding: 12px 15px;
     border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
 }
 
-button {
-    padding: 10px 20px;
-    background-color: #007bff;
+form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+form button {
+    padding: 12px 20px;
+    background-color: #117fec;
     color: white;
+    font-weight: bold;
+    font-size: 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
+form button:hover {
+    background-color: #0d6dd9;
 }
 
 .back-link {
-    display: block;
-    text-align: center;
+    display: inline-block;
     margin-top: 20px;
-    color: #007bff;
     text-decoration: none;
+    color: #117fec;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
 }
-@media (max-width: 600px) {
+
+.back-link:hover {
+    background-color: #e9f3ff;
+}
+
+.footer {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #0c7ae9;
+    color: #eee;
+    position: relative;
+    margin-top: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: #117fec;
+        flex-direction: column;
+        width: 200px;
+        padding: 10px 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
+    .hamburger {
+        display: block;
+    }
+    .nav-links.active {
+        display: flex;
+    }
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo {
+        margin-bottom: 10px;
+    }
+
     .container {
-        width: 90%;
+        margin: 20px;
         padding: 15px;
     }
 
-    .complaint-box {
+    .container h1 {
+        font-size: 20px;
+    }
+    .container p {
         font-size: 14px;
     }
+    form button{
+        font-size: 14px;
+    }  
 
-    .navbar {
-        font-size: 16px;
+    .navbar .nav-container .logo {
+        font-size: 1.2rem;
+    }
+    .navbar .nav-container .nav-links a {
+        font-size: 1rem;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+    .footer {
+        position: static;
+        padding: 10px 0;
+    }
+    .footer p {
+        margin: 0;
+    }
+    .footer p {
+        font-size: .9rem;
+    }
+}
+
+
+/* Apply universal box-sizing to all elements */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    box-sizing: border-box; /* Ensure padding doesn't exceed 100% */
+}
+.container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.navbar {
+    background: #117fec;
+    color: white;
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+/* Hamburger Icon - initially hidden */
+.hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+}
+
+/* ✅ Responsive Navbar */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #117fec;
+        width: 200px;
+        border-radius: 0 0 10px 10px;
         padding: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        display: flex;
     }
 }

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Raise Complaint</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/complaint.css">
 </head>
 <body>
@@ -11,11 +12,19 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="/student-dashboard" class="logo">📚 Library System</a>
-            <ul class="nav-links">
+    
+            <!-- ✅ Hamburger Icon -->
+            <div class="hamburger" id="hamburger">
+                &#9776;
+            </div>
+    
+            <!-- ✅ Menu Links -->
+            <ul class="nav-links" id="nav-links">
                 <li><a href="/student-dashboard/view-complaints">All Complaints</a></li>
-            </ul> 
+            </ul>
         </div>
     </nav>
+    
 
     <div class="container">
         <h1>📝 Raise a Complaint</h1>
@@ -59,6 +68,15 @@
             }
         };
     </script>
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+</script>
+
 
 </body>
 </html>
