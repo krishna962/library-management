@@ -533,6 +533,31 @@ footer.dark-mode {
     #reviewForm {
       padding: 20px;
     }
+    .custom-navbar .custom-container .custom-brand {
+      font-size: 1.1rem;
+    }
+    .custom-navbar .custom-container .nav-links ul li a {
+      font-size: 0.7rem;
+    }
+
+    .library-info .container h2{
+      font-size: 1rem;
+    }
+    .library-info .container p{
+      font-size: 0.8rem;
+    }
+    .library-info .container ul li{
+      font-size: 0.8rem;
+    }
+    .library-info .container ul li i{
+      font-size: 0.8rem;
+    }
+    .library-info .container ul li span {
+      font-size: 0.8rem;
+    }
+    .review-section .container h2{
+      font-size: 1.2rem;
+    }
   }
   
   @media (max-width: 480px) {
@@ -544,6 +569,15 @@ footer.dark-mode {
     #reviewForm button {
       font-size: 1rem;
       padding: 10px;
+    }
+    .custom-navbar .custom-container .custom-brand {
+      font-size: 1.1rem;
+    }
+    .custom-navbar .custom-container .nav-links ul li a {
+      font-size: 0.7rem;
+    }
+    .library-info .container h2{
+      font-size: 1rem;
     }
   }
   

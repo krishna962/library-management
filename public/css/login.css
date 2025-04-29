@@ -182,7 +182,7 @@
   }
   
   /* Responsive for Small Screens */
-  @media (max-width: 480px) {
+  @media (max-width: 380px) {
     .card {
       padding: 25px 15px;
       width: 95%;
@@ -202,6 +202,12 @@
       font-size: 20px;
       top: 10px;
       left: 10px;
+    }
+    .navbar .nav-container .logo {
+      font-size: 1.2rem;
+    }
+    .navbar .nav-container .nav-links a {
+      font-size: 0.9rem;
     }
   }
   .card {

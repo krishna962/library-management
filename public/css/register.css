@@ -67,6 +67,10 @@ h2 {
     border-color: #0077b6;
 }
 
+input, textarea {
+    box-sizing: border-box; /* ✅ Ensures padding stays inside the width */
+  }
+
 /* Label */
 .input-group label {
     position: absolute;
@@ -201,6 +205,32 @@ button[type="submit"]:hover {
 
     button[type="submit"] {
         font-size: 16px;
+    }
+
+    .register-container .card h2 {
+        font-size: 1.3rem;
+    }
+    .navbar .nav-container .logo {
+        font-size: 1.2rem;
+    }
+    button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+    }
+   .footer {
+        font-size: 0.8rem;
+    }
+    .footer-content p {
+        font-size: 0.8rem;
+    }
+    .navbar .nav-links a {
+        font-size: 0.9rem;
+    }
+    .navbar .nav-links a:hover {
+        color: #ffcc00;
+    }
+    .navbar .nav-links a.active {
+        color: #ffcc00;
     }
 }
 
