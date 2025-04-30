@@ -24,3 +24,6 @@ userSchema.pre("save", async function (next) {
 
 // ✅ Prevent OverwriteModelError
 module.exports = mongoose.models.User || mongoose.model('User', userSchema);
+
+
+// the file name of user.js to User.js done
