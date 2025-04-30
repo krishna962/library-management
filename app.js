@@ -23,6 +23,7 @@ const membershipRoutes = require('./routes/membershipRoutes');
 const bookRoutes = require("./routes/bookRoutes"); // adjust path as needed
 const createAdmin = require("./utils/createAdmin");
 const profileRoutes = require('./routes/profileRoutes');
+require('dotenv').config();
 
 
 
