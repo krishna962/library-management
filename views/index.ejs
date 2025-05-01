@@ -109,6 +109,7 @@
         <h2 class="text-center mb-4 section-title">📖 Why Choose Our Library?</h2>
         <div class="row align-items-center">
             <!-- Library Image -->
+            
             <div class="col-md-6">
                 <div class="image-container">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyo1rutgym9NIuocUfI08No9yoeVus_Soxeg&s" 
@@ -299,25 +300,25 @@
       
 <script src="/js/script.js"></script>
 <script src="/js/review.js"></script>
-<script src="/js/clock.js"></script>
+<!-- <script src="/js/clock.js"></script> -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-     // DIGITAL CLOCK
-function updateClock() {
-  const now = new Date();
-  const hours = String(now.getHours()).padStart(2, "0");
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-  const seconds = String(now.getSeconds()).padStart(2, "0");
-  const timeString = `${hours}:${minutes}:${seconds}`;
-  const clock = document.getElementById("digital-clock");
-  if (clock) {
-    clock.textContent = timeString;
-  }
-}
-setInterval(updateClock, 1000);
-updateClock(); // Initial load
+//      // DIGITAL CLOCK
+// function updateClock() {
+//   const now = new Date();
+//   const hours = String(now.getHours()).padStart(2, "0");
+//   const minutes = String(now.getMinutes()).padStart(2, "0");
+//   const seconds = String(now.getSeconds()).padStart(2, "0");
+//   const timeString = `${hours}:${minutes}:${seconds}`;
+//   const clock = document.getElementById("digital-clock");
+//   if (clock) {
+//     clock.textContent = timeString;
+//   }
+// }
+// setInterval(updateClock, 1000);
+// updateClock(); // Initial load
 
 // HAMBURGER MENU
 const hamburgerButton = document.getElementById('hamburgerButton');

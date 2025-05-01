@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Premium Membership</title>
   <link rel="stylesheet" href="/css/membership.css">
   <link rel="icon" type="image/x-icon" href="/images/logo5.png">
@@ -14,15 +15,30 @@
 </head>
 <body>
 
-  <nav class="premium-nav" data-aos="fade-down">
-    <div class="logo">📘 PremiumZone</div>
+  <!-- <nav class="premium-nav" data-aos="fade-down">
+    <div class="logo"></div>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li><a href="/books">Books</a></li>
       <li><a href="/contact">Contact</a></li>
       <li><a href="/membership" class="active">Membership</a></li>
     </ul>
+  </nav> -->
+
+
+  <nav class="premium-nav">
+    <div class="logo">📘 PremiumZone</div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
   </nav>
+  
 
   <div class="starfield"></div>
 
@@ -196,5 +212,13 @@
 
     
   </script>
+
+<script>
+  function toggleMenu() {
+    const nav = document.getElementById('navLinks');
+    nav.classList.toggle('active');
+  }
+</script>
+
 </body>
 </html>

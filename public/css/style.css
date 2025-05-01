@@ -411,6 +411,16 @@ footer.dark-mode {
     .hamburger-button {
       display: flex;
     }
+
+    .hamburger-button{
+      background-color: transparent;
+      border: none;
+    }
+
+    .nav-links.show ul  li a {
+      color: #fff;
+      font-size: 20px;
+    }
   
     /* Hide nav-links initially */
     .nav-links {
@@ -418,7 +428,7 @@ footer.dark-mode {
       position: absolute;
       top: 60px;
       right: 20px;
-      background-color: #333;
+      background-color: #5532f0;
       padding: 15px;
       border-radius: 8px;
     }
@@ -434,7 +444,7 @@ footer.dark-mode {
     }
   
     .nav-links ul li a {
-      font-size: 1.1rem;
+      font-size: 6rem;
     }
   }
   
@@ -569,6 +579,9 @@ footer.dark-mode {
     #reviewForm button {
       font-size: 1rem;
       padding: 10px;
+    }
+    .nav-links ul li a {
+      font-size: 6rem;
     }
     .custom-navbar .custom-container .custom-brand {
       font-size: 1.1rem;
@@ -803,6 +816,9 @@ footer.dark-mode {
     .stat-card p {
         font-size: 14px;
     }
+    .nav-links ul li a {
+      font-size: 6rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -838,6 +854,9 @@ footer.dark-mode {
     .testimonials .carousel-item h5 {
         font-size: 16px;
     }
+    .nav-links ul li a {
+      font-size: 6rem;
+    }
 }
 
 
@@ -864,3 +883,48 @@ footer.dark-mode {
     height: auto;
   }
   
+
+  /* Add spacing between image and info card on small screens */
+@media (max-width: 768px) {
+  .library-info .image-container {
+    margin-top: 32px;
+    overflow: hidden;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.library-info .image-container img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.4s ease;
+    border-radius: 12px;
+}
+
+.nav-links ul li a {
+  font-size: 6rem;
+}
+
+/* Hover effect */
+.library-info .image-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.library-info .image-container:hover img {
+    transform: scale(1.05);
+}
+
+
+  .explore-btn {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  .review-slider {
+    margin-top: 25px;
+    padding: 15px;
+  }
+}

@@ -1,10 +1,18 @@
-/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Navbar */
@@ -14,16 +22,13 @@ body {
   align-items: center;
   padding: 1rem 2rem;
   background: linear-gradient(to right, #2196F3, #1565C0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: #fff;
   flex-wrap: wrap;
 }
 
-.navbar .logo a {
-  text-decoration: none;
+.navbar .logo {
   font-size: 1.6rem;
   font-weight: bold;
-  color: #fff;
 }
 
 .nav-links {
@@ -43,14 +48,26 @@ body {
   color: #ffc107;
 }
 
-/* Contact Container */
+/* Main Centered Layout */
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  padding: 40px 20px;
+}
+
+/* Contact Form */
 .contact-container {
+  width: 100%;
   max-width: 500px;
-  margin: 60px auto;
   background: white;
-  padding: 30px 25px;
+  padding: 30px;
+  margin: auto; /* Center the form container */
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .contact-container h1 {
@@ -69,13 +86,16 @@ body {
 
 input, textarea {
   width: 100%;
-  padding: 12px;
+  padding: 12px 14px;
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
   font-family: inherit;
   resize: none;
+  text-align: left; /* Ensures text starts from left */
+  direction: ltr;    /* Ensures LTR writing even if language flips */
+  box-sizing: border-box;
 }
 
 button {
@@ -94,7 +114,7 @@ button:hover {
   background: linear-gradient(to right, #388E3C, #2E7D32);
 }
 
-/* Success/Error */
+/* Feedback Messages */
 .success {
   color: green;
   text-align: center;
@@ -112,70 +132,146 @@ button:hover {
   background: linear-gradient(to right, #2196F3, #1565C0);
   text-align: center;
   padding: 1rem;
-  margin-top: 2rem;
   color: #fff;
   font-size: 0.9rem;
 }
-input, textarea {
-  box-sizing: border-box; /* ✅ Ensures padding stays inside the width */
-}
 
-
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
+    flex-direction: row; /* Keep navbar in a row */
+    justify-content: space-between; /* Space between logo and burger */
+    align-items: center;
   }
 
   .nav-links {
+    display: none; /* Hide nav links by default */
     flex-direction: column;
-    gap: 1rem;
-    margin-top: 10px;
+    width: 100%;
+    position: absolute;
+    top: 60px; /* Adjust based on navbar height */
+    right: 0;
+    background: linear-gradient(to right, #2196F3, #1565C0);
+    padding: 1rem 0;
+  }
+
+  .nav-links.active {
+    display: flex; /* Show nav links when active */
+  }
+
+  .burger {
+    display: flex; /* Show burger icon */
+    flex-direction: column;
+    cursor: pointer;
   }
 
   .contact-container {
-    margin: 30px 15px;
-    padding: 25px 20px;
+    width: 90%; /* Make the form container responsive */
+    padding: 20px; /* Adjust padding for smaller screens */
+    max-height: fit-content;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
   }
 
+  .burger .line {
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+  }
+  .burger.active .line:nth-child(2) {
+    opacity: 0; /* Hide the middle line */
+  }
+  .burger.active .line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px); /* Rotate the first line */
+  }
+  .burger.active .line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px); /* Rotate the last line */
+  }
+  .contact-container {
+    width: 90%; /* Make the form container responsive */
+    padding: 20px; /* Adjust padding for smaller screens */
+  }
   .contact-container h1 {
-    font-size: 1.6rem;
+    font-size: 1.8rem; /* Adjust heading size for smaller screens */
   }
-
   .contact-container p {
-    font-size: 0.95rem;
+    font-size: 0.9rem; /* Adjust paragraph size for smaller screens */
   }
-
   input, textarea {
-    font-size: 0.95rem;
+    font-size: 0.9rem; /* Adjust input size for smaller screens */
   }
-  input{
-    padding: 10px;
-    
-  }
-
   button {
-    font-size: 0.95rem;
+    font-size: 0.9rem; /* Adjust button size for smaller screens */
   }
-}
+  .footer {
+    font-size: 0.8rem; /* Adjust footer size for smaller screens */
+  }
+  .footer p {
+    margin: 0; /* Remove margin for footer text */
+  }
+  .footer a {
+    color: #ffc107; /* Change link color in footer */
+    text-decoration: none; /* Remove underline from links */
+  }
+  .footer a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  .footer a:visited {
+    color: #ffc107; /* Visited link color */
+  }
+  .footer a:active {
+    color: #ffc107; /* Active link color */
+  }
+  .footer a:focus {
+    outline: none; /* Remove outline on focus */
+  }
+  .footer a:focus-visible {
+    outline: 2px solid #ffc107; /* Outline on focus-visible */
+  }
+  .footer a:focus-visible:hover {
+    outline: 2px solid #ffc107; /* Outline on hover */
+  }
+  .footer a:focus-visible:active {
+    outline: 2px solid #ffc107; /* Outline on active */
+  }
+  .footer a:focus-visible:visited {
+    outline: 2px solid #ffc107; /* Outline on visited */
+  }
+  .footer a:focus-visible:visited:hover {
+    outline: 2px solid #ffc107; /* Outline on visited hover */
+  }
+  .footer a:focus-visible:visited:active {
+    outline: 2px solid #ffc107; /* Outline on visited active */
+  }
 
-/* Optional Hero Section Placeholder */
-.hero {
-  background: url('/images/library-bg.jpg') no-repeat center center/cover;
-  padding: 60px 20px;
-  text-align: center;
-  color: white;
-}
+  .footer a:focus-visible:visited:focus {
+    outline: 2px solid #ffc107; /* Outline on visited focus */
+  }
+  .footer a:focus-visible:visited:focus-visible {
+    outline: 2px solid #ffc107; /* Outline on visited focus-visible */
+  }
+  .footer a:focus-visible:visited:focus-visible:hover {
+    outline: 2px solid #ffc107; /* Outline on visited focus-visible hover */
+  }
+  .footer a:focus-visible:visited:focus-visible:active {
+    outline: 2px solid #ffc107; /* Outline on visited focus-visible active */
+  }
+  .footer a:focus-visible:visited:focus-visible:visited {
+    outline: 2px solid #ffc107; /* Outline on visited focus-visible visited */
+  }
+  .footer a:focus-visible:visited:focus-visible:visited:hover {
+    outline: 2px solid #ffc107; /* Outline on visited focus-visible visited hover */
+  }
+  .footer a:focus-visible:visited:focus-visible:visited:active {
+    outline: 2px solid #ffc107; /* Outline on visited focus-visible visited active */
+  }
 
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: auto;
+  .footer a:focus-visible:visited:focus-visible:visited:focus {
+    outline: 2px solid #ffc107; /* Outline on visited focus-visible visited focus */
+  }
+  .footer a:focus-visible:visited:focus-visible:visited:focus-visible {
+    outline: 2px solid #ffc107; /* Outline on visited focus-visible visited focus-visible */
+  }
 }

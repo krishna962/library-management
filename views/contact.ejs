@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us</title>
   <link rel="icon" type="image/x-icon" href="/images/logo5.png">
   <link rel="stylesheet" href="/css/contact.css">
@@ -9,15 +10,21 @@
 <body>
 
     <!-- 🌐 Navbar -->
+ 
   <nav class="navbar">
-    <div class="logo">
-      <a href="#">Library Management</a>
-    </div>
-    <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/explore">Dashboard</a></li>
+    <div class="logo">📚 Library System</div>
+    <div class="burger" id="burger">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+  </div>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/membership">Membership</a></li>
+        <li><a href="/explore">Dashboard</a></li>
     </ul>
-  </nav>
+</nav>
+
 
   
   <div class="contact-container">
@@ -72,6 +79,12 @@
         if (errorMsg) errorMsg.style.display = 'none';
       }, 10000);
     };
+  </script>
+  <script>
+    document.getElementById('burger').addEventListener('click', function() {
+    const navLinks = document.getElementById('nav-links');
+    navLinks.classList.toggle('active');
+});
   </script>
 </body>
 </html>
